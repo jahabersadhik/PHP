@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* CSS Document */
+body{background:url(../images/bkgrnd_greydots.png) repeat;color:#999999;font-family:Arial,Helvetica,sans-serif;font-size:1em;margin:0 auto;padding:0;}
+#container{width:963px;margin:0 auto;}
+#header{width:963px;height:110px;background:url(../images/header.png) top center;}
+.clearfix{clear:both;}
+* {color:#999999;font-family:Arial,Helvetica,sans-serif;font-size:1em;margin:0;padding:0;}
+#maincontainer{margin:10px 6px;}
+#maincontainer_fullpannel{margin:0px 2px;}
+#left_pannel{width:174px;float:left;}
+#left_pannel .l_top{height:11px;background:url(../images/l_top.png) no-repeat left top;width:167px;}
+#left_pannel .l_mid{background:url(../images/l_mid.png) repeat-y left top;width:151px;padding:0 8px;}
+#left_pannel .l_bottom{height:11px;background:url(../images/l_bottom.png) no-repeat left top;width:167px;}
+#right_pannel{width:777px;float:left;color:#999999;font-family:Arial,Helvetica,sans-serif;font-size:1em;}
+#right_pannel .r_top{height:11px;background:url(../images/r_top.png) no-repeat left top;width:777px;}
+#right_pannel .r_mid{background:url(../images/r_mid.png) repeat-y left top;width:757px;padding:0 10px;color:#999999;font-family:Arial,Helvetica,sans-serif;font-size:12px;}
+#right_pannel .r_bottom{height:11px;background:url(../images/r_bottom.png) no-repeat left top;width:777px;}
+/* -------content css------- */
+#menu {}
+#menu li {border-bottom:1px solid #EAE9E9;border-right:1px solid #EAE9E9;font-size:0.8em;text-align:right;}
+li {list-style-type:none;}
+li a.link_menu:link, li a.link_menu:visited {background:url("../images/ico_arrow_orange.gif") no-repeat scroll left center transparent;display:block;font-variant:small-caps;font-weight:bold;padding:5px 15px;text-decoration:none;width:120px;}
+li a.link_menu:hover, li a.link_menu:active {display: block;width: 120px;background: url(../images/ico_arrow_grey.gif) no-repeat left #f8f8f8;color: #ff9600;padding: 5px 15px;font-weight: bold;font-variant: small-caps;text-decoration: none;}
+a:link, a:visited {text-decoration:none;}
+#footer{height:40px;background:url(../images/footer_bg.png) repeat-x left bottom;}
+#footer .footer_content{font-size:small;text-align:center;padding:12px;}
+.orange{color:#FF6600;}
+#fullpannel{width:954px;color:#999999;font-family:Arial,Helvetica,sans-serif;font-size:1em;margin:auto; padding-top:1px;}
+#fullpannel .f_top{height:11px;background:url(../images/fullpannel_top.png) no-repeat left top;width:954px;}
+#fullpannel .f_mid{background:url(../images/fullpannel_mid.png) repeat-y left top;width:934px;padding:0 10px;color:#999999;font-family:Arial,Helvetica,sans-serif;font-size:12px;min-height:500px;}
+#fullpannel .f_bottom{height:11px;background:url(../images/fullpannel_bottom.png) no-repeat left top;width:954px;}
+/*------------- NEW MENU--------------------*/
+#stylefour{position:relative;display:block;height:39px;font-size:11px;font-weight:bold;background:transparent url(../images/bgOFF.gif) repeat-x top left;font-family:Arial,Verdana,Helvitica,sans-serif;border-top:4px solid #F77920;}
+
+#stylefour ul{margin:0;padding:0;list-style-type:none;width:auto;}
+#stylefour ul li{display:block;float:left;margin:0;}
+#stylefour ul li a{display:block;float:left;color:#666;text-decoration:none;padding:11px 8px 0 8px;height:23px;background:transparent url(../images/bgDIVIDER.gif) no-repeat top right;}
+#stylefour ul li a:hover,#stylefour ul li a.current{color:#F77920;background:#fff url(../images/bgON.gif) no-repeat top right;}
+.button_apply{background:url(../images/glossy-button.jpg) no-repeat bottom center;width:140px;height:42px;}
+a.squarebutton{background: transparent url('../images/btn_left_.jpg') no-repeat top left;display: block;float: left;font: normal 12px Arial; /* Change 12px as desired */
+line-height: 15px; /* This value + 4px + 4px (top and bottom padding of SPAN) must equal height of button background (default is 23px) */
+height: 53px; /* Height of button background height */
+padding-left: 11px; /* Width of left menu image */
+text-decoration: none;
+}
+
+a:link.squarebutton, a:visited.squarebutton, a:active.squarebutton{
+color: #494949; /*button text color*/
+}
+
+a.squarebutton span{
+background: transparent url('../images/btn_right_.jpg') no-repeat top right;
+display: block;
+padding: 7px 11px 26px 0; /*Set 9px below to match value of 'padding-left' value above*/
+color:#000;
+}
+a.squarebutton:hover span{color:996600;}
+
+.buttonwrapper{ /* Container you can use to surround a CSS button to clear float */
+overflow: hidden; 
+width: 15%;
+float:right;
+}
+/*.textbox_bg{background:url(../images/textbox_bg.png) left center;height:26px;width:206px;color:#000000;
+padding:2px;}*/
+input {background:none;border:1px solid #999;
+color:#000000;
+padding:2px;
+margin:2px;
+}
+.label_class{padding:6px 0;}
+#templatemo_banner {
+background:url("../images/templatemo_banner_bg.jpg") no-repeat scroll 0 0 transparent;
+height:80px;
+margin:0 auto;
+width:960px;
+}
+#templatemo_menu_search  {
+background:url("../images/templatemo_menu_bg.jpg") repeat-x scroll 0 0 transparent;
+clear:both;
+height:30px;
+width:960px;
+}
+#templatemo_banner #logo {
+background:url("../images/PERI-logo.png") no-repeat scroll 0 0 transparent;
+float:left;
+height:55px;
+margin:15px 0 0 15px;
+width:295px;
+}
+#templatemo_banner #project_name {
+float:right;
+font-size:30px;
+font-weight:bold;
+height:55px;
+margin:25px 15px 0 0;
+text-align:right;
+width:295px;
+}
+#templatemo_content {
+clear:both;
+color:#000000;
+font-family:Arial;
+font-size:11px;
+min-height:350px;
+padding:0;
+width:960px;
+margin:auto;
+}
+p#intro {
+color:#666;
+font-size:14px;;
+line-height:1.5em;
+padding:0 10px 0 0;
+}
+.content_txt{font-family:verdana;font-size:12px;color:#c6c6c6;}
+.login {background:url(../images/login.png) no-repeat center;width:52px;height:48px;margin:5px auto;border:0;cursor:pointer; }
+.save {background:url(../images/save.png) no-repeat center;width:49px;height:49px;margin:5px auto;border:0;cursor:pointer;}
+.back {background:url(../images/back.png) no-repeat center;width:48px;height:49px;margin:5px auto;border:0;cursor:pointer;}
+.search {background:url(../images/search.png) no-repeat center;width:60px;height:48px;margin:5px auto;border:0;cursor:pointer;}

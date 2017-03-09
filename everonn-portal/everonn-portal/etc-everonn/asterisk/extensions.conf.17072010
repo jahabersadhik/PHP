@@ -1,0 +1,1191 @@
+;!
+;! Automatically generated configuration file
+;! Filename: extensions.conf (/etc/asterisk/extensions.conf)
+;! Generator: Manager
+;! Creation Date: Sat Jun 20 17:18:18 2009
+;!
+[general]
+;
+; If static is set to no, or omitted, then the pbx_config will rewrite
+; this file when extensions are modified.  Remember that all comments
+; made in the file will be lost when that happens. 
+;
+; XXX Not yet implemented XXX
+;
+static = yes
+;
+; if static=yes and writeprotect=no, you can save dialplan by
+; CLI command "dialplan save" too
+;
+writeprotect = no
+clearglobalvars = yes
+;
+; If priorityjumping is set to 'yes', then applications that support
+; 'jumping' to a different priority based on the result of their operations
+; will do so (this is backwards compatible behavior with pre-1.2 releases
+; of Asterisk). Individual applications can also be requested to do this
+; by passing a 'j' option in their arguments.
+;
+;priorityjumping=yes
+;
+; User context is where entries from users.conf are registered.  The
+; default value is 'default'
+;
+;userscontext=default
+;
+; You can include other config files, use the #include command
+; (without the ';'). Note that this is different from the "include" command
+; that includes contexts within other contexts. The #include command works
+; in all asterisk configuration files.
+;#include "filename.conf"
+; The "Globals" category contains global variables that can be referenced
+; in the dialplan with the GLOBAL dialplan function:
+; ${GLOBAL(VARIABLE)}
+; ${${GLOBAL(VARIABLE)}} or ${text${GLOBAL(VARIABLE)}} or any hybrid
+; Unix/Linux environmental variables can be reached with the ENV dialplan
+; function: ${ENV(VARIABLE)}
+;
+[globals]
+CONSOLE = Console/dsp  ; Console interface for demo
+;CONSOLE=Zap/1
+;CONSOLE=Phone/phone0
+IAXINFO = guest  ; IAXtel username/password
+;IAXINFO=myuser:mypass
+TRUNK = Zap/G2  ; Trunk interface
+;
+; Note the 'G2' in the TRUNK variable above. It specifies which group (defined
+; in zapata.conf) to dial, i.e. group 2, and how to choose a channel to use in
+; the specified group. The four possible options are:
+;
+; g: select the lowest-numbered non-busy Zap channel
+;    (aka. ascending sequential hunt group).
+; G: select the highest-numbered non-busy Zap channel
+;    (aka. descending sequential hunt group).
+; r: use a round-robin search, starting at the next highest channel than last
+;    time (aka. ascending rotary hunt group).
+; R: use a round-robin search, starting at the next lowest channel than last
+;    time (aka. descending rotary hunt group).
+;
+TRUNKMSD = 1  ; MSD digits to strip (usually 1 or 0)
+span_1 = Zap/G1
+span_2 = Zap/g3
+span_3 = Zap/g7
+span_4 = Zap/g8
+;TRUNK=IAX2/user:pass@provider
+;
+; Any category other than "General" and "Globals" represent 
+; extension contexts, which are collections of extensions.  
+;
+; Extension names may be numbers, letters, or combinations
+; thereof. If an extension name is prefixed by a '_'
+; character, it is interpreted as a pattern rather than a
+; literal.  In patterns, some characters have special meanings:
+;
+;   X - any digit from 0-9
+;   Z - any digit from 1-9
+;   N - any digit from 2-9
+;   [1235-9] - any digit in the brackets (in this example, 1,2,3,5,6,7,8,9)
+;   . - wildcard, matches anything remaining (e.g. _9011. matches 
+;	anything starting with 9011 excluding 9011 itself)
+;   ! - wildcard, causes the matching process to complete as soon as
+;       it can unambiguously determine that no other matches are possible
+;
+; For example the extension _NXXXXXX would match normal 7 digit dialings, 
+; while _1NXXNXXXXXX would represent an area code plus phone number
+; preceded by a one.
+;
+; Each step of an extension is ordered by priority, which must
+; always start with 1 to be considered a valid extension.  The priority
+; "next" or "n" means the previous priority plus one, regardless of whether
+; the previous priority was associated with the current extension or not.
+; The priority "same" or "s" means the same as the previously specified
+; priority, again regardless of whether the previous entry was for the
+; same extension.  Priorities may be immediately followed by a plus sign
+; and another integer to add that amount (most useful with 's' or 'n').  
+; Priorities may then also have an alias, or label, in 
+; parenthesis after their name which can be used in goto situations
+;
+; Contexts contain several lines, one for each step of each
+; extension, which can take one of two forms as listed below,
+; with the first form being preferred. 
+;
+;[context]
+;exten => someexten,{priority|label{+|-}offset}[(alias)],application(arG1,arg2,...)
+;exten => someexten,{priority|label{+|-}offset}[(alias)],application,arG1|arg2...
+;
+; Included Contexts
+;
+; One may include another context in the current one as well, optionally with a
+; date and time.  Included contexts are included in the order
+; they are listed.
+; The reason a context would include other contexts is for their 
+; extensions.
+; The algorithm to find an extension is recursive, and works in this
+; fashion: 
+;	 first, given a stack on which to store context references, 
+;           push the context to find the extension onto the stack...
+;    a) Try to find a matching extension in the context at the top of 
+;       the stack, and, if found, begin executing the priorities
+;       there in sequence.
+;    b) If not found, Search the switches, if any declared, in
+;       sequence.
+;    c) If still not found, for each include, push that context onto 
+;       the top of the context stack, and recurse to a).
+;    d) If still not found, pop the entry from the top of the stack; 
+;       if the stack is empty, the search has failed. If it's not, 
+;       continue with the next context in c).
+; This is a depth-first traversal, and stops with the first context 
+; that provides a matching extension. As usual, if more than one
+; pattern in a context will match, the 'best' match will win.
+; Please note that that extensions found in an included context are
+; treated as if they were in the context from which the search began.
+; The PBX's notion of the "current context" is not changed.
+; Please note that in a context, it does not matter where an include
+; directive occurs. Whether at the top, or near the bottom, the effect 
+; will be the same. The only thing that matters is that if there is 
+; more than one include directive, they will be searched for extensions 
+; in order, first to last.
+; Also please note that pattern matches (like _9XX) are not treated
+; any differently than exact matches (like 987). Also note that the
+; order of extensions in a context have no affect on the outcome.
+;
+; Timing list for includes is 
+;
+;   <time range>|<days of week>|<days of month>|<months>
+;
+; Note that ranges may be specified to wrap around the ends.  Also, minutes are
+; fine-grained only down to the closest even minute.
+;
+;include => daytime|9:00-17:00|mon-fri|*|*
+;include => weekend|*|sat-sun|*|*
+;include => weeknights|17:02-8:58|mon-fri|*|*
+;
+; ignorepat can be used to instruct drivers to not cancel dialtone upon
+; receipt of a particular pattern.  The most commonly used example is
+; of course '9' like this:
+;
+;ignorepat => 9
+;
+; so that dialtone remains even after dialing a 9.
+;
+;
+; Sample entries for extensions.conf
+;
+;
+[dundi-e164-canonical]
+;
+; List canonical entries here
+;
+;exten => 12564286000,1,Macro(stdexten,6000,IAX2/foo)
+;exten => _125642860XX,1,Dial(IAX2/otherbox/${EXTEN:7})
+[dundi-e164-customers]
+;
+; If you are an ITSP or Reseller, list your customers here.
+;
+;exten => _12564286000,1,Dial(SIP/customer1)
+;exten => _12564286001,1,Dial(IAX2/customer2)
+[dundi-e164-via-pstn]
+;
+; If you are freely delivering calls to the PSTN, list them here
+;
+;exten => _1256428XXXX,1,Dial(Zap/G2/${EXTEN:7}) ; Expose all of 256-428 
+;exten => _1256325XXXX,1,Dial(Zap/G2/${EXTEN:7}) ; Ditto for 256-325
+[dundi-e164-local]
+;
+; Context to put your dundi IAX2 or SIP user in for
+; full access
+;
+include => dundi-e164-canonical
+include => dundi-e164-customers
+include => dundi-e164-via-pstn
+
+[dundi-e164-switch]
+;
+; Just a wrapper for the switch
+;
+switch => DUNDi/e164
+
+[dundi-e164-lookup]
+;
+; Locally to lookup, try looking for a local E.164 solution
+; then try DUNDi if we don't have one.
+;
+include => dundi-e164-local
+include => dundi-e164-switch
+;
+; DUNDi can also be implemented as a Macro instead of using 
+; the Local channel driver. 
+;
+[macro-dundi-e164]
+;
+; ARG1 is the extension to Dial
+;
+; Extension "s" is not a wildcard extension that matches "anything".
+; In macros, it is the start extension. In most other cases, 
+; you have to goto "s" to execute that extension.
+;
+; For wildcard matches, see above - all pattern matches start with
+; an underscore.
+exten => s,1,Goto(${ARG1},1)
+include => dundi-e164-lookup
+;
+; Here are the entries you need to participate in the IAXTEL
+; call routing system.  Most IAXTEL numbers begin with 1-700, but
+; there are exceptions.  For more information, and to sign
+; up, please go to www.gnophone.com or www.iaxtel.com
+;
+[iaxtel700]
+exten => _91700XXXXXXX,1,Dial(IAX2/${GLOBAL(IAXINFO)}@iaxtel.com/${EXTEN:1}@iaxtel)
+;
+; The SWITCH statement permits a server to share the dialplan with
+; another server. Use with care: Reciprocal switch statements are not
+; allowed (e.g. both A -> B and B -> A), and the switched server needs
+; to be on-line or else dialing can be severly delayed.
+;
+[iaxprovider]
+;switch => IAX2/user:[key]@myserver/mycontext
+[trunkint]
+;
+; International long distance through trunk
+;
+exten => _9011.,1,Macro(dundi-e164,${EXTEN:4})
+exten => _9011.,n,Dial(${GLOBAL(TRUNK)}/${EXTEN:${GLOBAL(TRUNKMSD)}})
+
+[trunkld]
+;
+; Long distance context accessed through trunk
+;
+exten => _91NXXNXXXXXX,1,Macro(dundi-e164,${EXTEN:1})
+exten => _91NXXNXXXXXX,n,Dial(${GLOBAL(TRUNK)}/${EXTEN:${GLOBAL(TRUNKMSD)}})
+
+[trunklocal]
+;
+; Local seven-digit dialing accessed through trunk interface
+;
+exten => _9NXXXXXX,1,Dial(${GLOBAL(TRUNK)}/${EXTEN:${GLOBAL(TRUNKMSD)}})
+
+[trunktollfree]
+;
+; Long distance context accessed through trunk interface
+;
+exten => _91800NXXXXXX,1,Dial(${GLOBAL(TRUNK)}/${EXTEN:${GLOBAL(TRUNKMSD)}})
+exten => _91888NXXXXXX,1,Dial(${GLOBAL(TRUNK)}/${EXTEN:${GLOBAL(TRUNKMSD)}})
+exten => _91877NXXXXXX,1,Dial(${GLOBAL(TRUNK)}/${EXTEN:${GLOBAL(TRUNKMSD)}})
+exten => _91866NXXXXXX,1,Dial(${GLOBAL(TRUNK)}/${EXTEN:${GLOBAL(TRUNKMSD)}})
+
+[international]
+;
+; Master context for international long distance
+;
+ignorepat => 9
+include => longdistance
+include => trunkint
+
+[longdistance]
+;
+; Master context for long distance
+;
+ignorepat => 9
+include => local
+include => trunkld
+
+[local]
+;
+; Master context for local, toll-free, and iaxtel calls only
+;
+ignorepat => 9
+include => default
+include => trunklocal
+include => iaxtel700
+include => trunktollfree
+include => iaxprovider
+;Include parkedcalls (or the context you define in features conf)
+;to enable call parking.
+include => parkedcalls
+
+[macro-stdPrivacyexten];
+;
+; Standard extension macro:
+;   ${ARG1} - Extension  (we could have used ${MACRO_EXTEN} here as well
+;   ${ARG2} - Device(s) to ring
+;   ${ARG3} - Optional DONTCALL context name to jump to (assumes the s,1 extension-priority)
+;   ${ARG4} - Optional TORTURE context name to jump to (assumes the s,1 extension-priority)`
+;
+exten => s,1,Dial(${ARG2},20|p)  ; Ring the interface, 20 seconds maximum, call screening 
+; option (or use P for databased call screening)
+exten => s,2,Goto(s-${DIALSTATUS},1)  ; Jump based on status (NOANSWER,BUSY,CHANUNAVAIL,CONGESTION,ANSWER)
+exten => s-NOANSWER,1,Voicemail(${ARG1},u)  ; If unavailable, send to voicemail w/ unavail announce
+exten => s-NOANSWER,2,Goto(default,s,1)  ; If they press #, return to start
+exten => s-BUSY,1,Voicemail(${ARG1},b)  ; If busy, send to voicemail w/ busy announce
+exten => s-BUSY,2,Goto(default,s,1)  ; If they press #, return to start
+exten => s-DONTCALL,1,Goto(${ARG3},s,1)  ; Callee chose to send this call to a polite "Don't call again" script.
+exten => s-TORTURE,1,Goto(${ARG4},s,1)  ; Callee chose to send this call to a telemarketer torture script.
+exten => _s-.,1,Goto(s-NOANSWER,1)  ; Treat anything else as no answer
+exten => a,1,VoicemailMain(${ARG1})  ; If they press *, send the user into VoicemailMain
+
+[macro-page];
+;
+; Paging macro:
+;
+;       Check to see if SIP device is in use and DO NOT PAGE if they are
+;
+;   ${ARG1} - Device to page
+exten => s,1,ChanIsAvail(${ARG1}|js)  ; j is for Jump and s is for ANY call
+exten => s,n,GoToIf([${AVAILSTATUS} = "1"]?autoanswer:fail)
+exten => s,n(autoanswer),Set(_ALERT_INFO="RA")  ; This is for the PolyComs
+exten => s,n,SIPAddHeader(Call-Info: Answer-After=0)  ; This is for the Grandstream, Snoms, and Others
+exten => s,n,NoOp()  ; Add others here and Post on the Wiki!!!!
+exten => s,n,Dial(${ARG1}||)
+exten => s,n(fail),Hangup
+
+[demo]
+;
+; We start with what to do when a call first comes in.
+;
+exten => s,1,Wait(1)  ; Wait a second, just for fun
+exten => s,n,Answer  ; Answer the line
+exten => s,n,Set(TIMEOUT(digit)=5)  ; Set Digit Timeout to 5 seconds
+exten => s,n,Set(TIMEOUT(response)=10)  ; Set Response Timeout to 10 seconds
+exten => s,n(restart),BackGround(demo-congrats)  ; Play a congratulatory message
+exten => s,n(instruct),BackGround(demo-instruct)  ; Play some instructions
+exten => s,n,WaitExten  ; Wait for an extension to be dialed.
+exten => 2,1,BackGround(demo-moreinfo)  ; Give some more information.
+exten => 2,n,Goto(s,instruct)
+exten => 3,1,Set(LANGUAGE()=fr)  ; Set language to french
+exten => 3,n,Goto(s,restart)  ; Start with the congratulations
+exten => 1000,1,Goto(default,s,1)
+;
+; We also create an example user, 1234, who is on the console and has
+; voicemail, etc.
+;
+exten => 1234,1,Playback(transfer,skip)  ; "Please hold while..." 
+; (but skip if channel is not up)
+exten => 1234,n,Macro(stdexten,1234,${GLOBAL(CONSOLE)})
+exten => 1235,1,Voicemail(1234,u)  ; Right to voicemail
+exten => 1236,1,Dial(Console/dsp)  ; Ring forever
+exten => 1236,n,Voicemail(1234,b)  ; Unless busy
+;
+; # for when they're done with the demo
+;
+exten => #,1,Playback(demo-thanks)  ; "Thanks for trying the demo"
+exten => #,n,Hangup  ; Hang them up.
+;
+; A timeout and "invalid extension rule"
+;
+exten => t,1,Goto(#,1)  ; If they take too long, give up
+exten => i,1,Playback(invalid)  ; "That's not valid, try again"
+;
+; Create an extension, 500, for dialing the
+; Asterisk demo.
+;
+exten => 500,1,Playback(demo-abouttotry)  ; Let them know what's going on
+exten => 500,n,Dial(IAX2/guest@pbx.digium.com/s@default)  ; Call the Asterisk demo
+exten => 500,n,Playback(demo-nogo)  ; Couldn't connect to the demo site
+exten => 500,n,Goto(s,6)  ; Return to the start over message.
+;
+; Create an extension, 600, for evaluating echo latency.
+;
+exten => 600,1,Playback(demo-echotest)  ; Let them know what's going on
+exten => 600,n,Echo  ; Do the echo test
+exten => 600,n,Playback(demo-echodone)  ; Let them know it's over
+exten => 600,n,Goto(s,6)  ; Start over
+;
+;	You can use the Macro Page to intercom a individual user
+exten => 76245,1,Macro(page,SIP/Grandstream1)
+; or if your peernames are the same as extensions
+exten => _7XXX,1,Macro(page,SIP/${EXTEN})
+;
+;
+; System Wide Page at extension 7999
+;
+exten => 7999,1,Set(TIMEOUT(absolute)=60)
+exten => 7999,2,Page(Local/Grandstream1@page&Local/Xlite1@page&Local/1234@page/n|d)
+; Give voicemail at extension 8500
+;
+exten => 8500,1,VoicemailMain
+exten => 8500,n,Goto(s,6)
+;
+; Here's what a phone entry would look like (IXJ for example)
+;
+;exten => 1265,1,Dial(Phone/phone0,15)
+;exten => 1265,n,Goto(s,5)
+;
+;	The page context calls up the page macro that sets variables needed for auto-answer
+;	It is in is own context to make calling it from the Page() application as simple as 
+;	Local/{peername}@page
+;
+[page]
+exten => _X.,1,Macro(page,SIP/${EXTEN})
+;[mainmenu]
+;
+; Example "main menu" context with submenu
+;
+;exten => s,1,Answer
+;exten => s,n,Background(thanks)		; "Thanks for calling press 1 for sales, 2 for support, ..."
+;exten => s,n,WaitExten
+;exten => 1,1,Goto(submenu,s,1)
+;exten => 2,1,Hangup
+;include => default
+;
+;[submenu]
+;exten => s,1,Ringing					; Make them comfortable with 2 seconds of ringback
+;exten => s,n,Wait,2
+;exten => s,n,Background(submenuopts)	; "Thanks for calling the sales department.  Press 1 for steve, 2 for..."
+;exten => s,n,WaitExten
+;exten => 1,1,Goto(default,steve,1)
+;exten => 2,1,Goto(default,mark,2)
+
+[default]
+
+;call divert for 8409
+
+exten => 8409,1,Dial(SIP/8409,10)
+exten => 8409,n,Dial(Zap/G1/9176291177)
+exten => 8409,n,VoiceMail(8409)
+
+
+;call-divert for 8412
+;exten => 8412,1,Dial(SIP/8407)
+;exten => 8412,2,Voicemail(8407)
+
+;queue test
+
+exten => 8400,1,Dial(SIP/8400&SIP/8827&SIP/8818,5)
+exten => 8400,2,Queue(incoming)
+
+exten => 5555,1,Playback(record/krec/everwelcome)
+exten => 5555,2,Playback(record/krec/callwait)
+exten => 5555,3,Playback(record/krec/ithelpdesk)
+
+
+;exten => 2333,1,Playback(queue-periodic-announce)
+exten => 2334,1,Ringing()
+exten => 2334,2,BackGround(record/Greeting4)
+exten => 2334,3,WaitExten(5)
+exten => 2334,4,Dial(SIP/2334,10)
+;exten => 2333,4,Queue(incoming|t|||5)
+;exten => 2333,4,Playback(record/krec/callwait)
+exten => 2334,5,Queue(incoming)
+;exten => 2333,1,GoTo(reception-custom,2333,1)
+
+exten => 8539,1,MixMonitor(${CALLERID(num)}-${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}.wav)
+exten => 8539,2,Dial(SIP/${EXTEN})
+;exten => 2334,1,Playback(record/krec/ithelpdesk)
+;exten => 2334,2,Dial(SIP/2334)
+;exten => 2334,3,Hangup()
+
+;exten => 8411,1,MixMonitor(${CALLERID(num)}-${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}.gsm)
+;exten => 8411,1,Dial(SIP/8407,20)
+;exten => 8411,2,Voicemail(${EXTEN})
+
+exten => 8150,1,VoiceMailMain
+exten => _7XXXXXXXXXX,1,Dial(Zap/G1/${EXTEN:1})
+
+; remote call pickup
+exten => _*8.,1,SET(GLOBAL(PICKUPMARK)=${EXTEN:2})
+exten => _*8.,n,Pickup(${EXTEN:2}@PICKUPMARK)
+
+;Forward extension to Mobile No.
+
+;exten => 8717,1,Dial(SIP/8717,20)
+;exten => 8717,2,Goto(8717-${DIALSTATUS},1)
+;exten => 8717-NOANSWER,1,Dial(Zap/G1/9445001546,30)
+ 
+
+exten => 3330,1,MeetMe(${EXTEN}|MI)
+;exten => 8499,1,VoiceMailMain
+exten => 8499,1,VoiceMailMain(${CALLERID(num)}@default)
+exten => 8598,1,MeetMe(${EXTEN}|MI)
+exten => 3010,1,MeetMe(${EXTEN}|MI)
+exten => 3020,1,MeetMe(${EXTEN}|MI)
+exten => 3030,1,MeetMe(${EXTEN}|MI)
+exten => 3040,1,MeetMe(${EXTEN}|MI)
+exten => 3050,1,MeetMe(${EXTEN}|MI)
+exten => 3060,1,MeetMe(${EXTEN}|MI)
+exten => 3070,1,MeetMe(${EXTEN}|MI)
+exten => 3080,1,MeetMe(${EXTEN}|MI)
+exten => 3090,1,MeetMe(${EXTEN}|MI)
+exten => 3100,1,MeetMe(${EXTEN}|MI)
+exten => 3110,1,MeetMe(${EXTEN}|MI)
+exten => 3120,1,MeetMe(${EXTEN}|MI)
+exten => 3130,1,MeetMe(${EXTEN}|MI)
+exten => 3140,1,MeetMe(${EXTEN}|MI)
+exten => 3150,1,MeetMe(${EXTEN}|MI)
+exten => 3160,1,MeetMe(${EXTEN}|MI)
+exten => 3170,1,MeetMe(${EXTEN}|MI)
+exten => 3180,1,MeetMe(${EXTEN}|MI)
+exten => 3190,1,MeetMe(${EXTEN}|MI)
+exten => 3200,1,MeetMe(${EXTEN}|MI)
+exten => 3210,1,MeetMe(${EXTEN}|MI)
+exten => 3220,1,MeetMe(${EXTEN}|MI)
+exten => 3230,1,MeetMe(${EXTEN}|MI)
+exten => 3240,1,MeetMe(${EXTEN}|MI)
+exten => 3250,1,MeetMe(${EXTEN}|MI)
+exten => 3260,1,MeetMe(${EXTEN}|MI)
+exten => 3270,1,MeetMe(${EXTEN}|MI)
+exten => 3280,1,MeetMe(${EXTEN}|MI)
+exten => 3290,1,MeetMe(${EXTEN}|MI)
+exten => 3300,1,MeetMe(${EXTEN}|MI)
+exten => 3310,1,MeetMe(${EXTEN}|MI)
+exten => 3320,1,MeetMe(${EXTEN}|MI)
+
+;exten => 9,1,Dial(SIP/8400,20)
+
+;welcome message for IT Helpdesk
+;exten => 8444,1,Playback(record/krec/welcome)
+
+;exten => 8444,1,Dial(SIP/8444&SIP/8484,20)
+exten => 8444,1,Dial(SIP/8444,20)
+
+; Enable the 8889 to chennai isystem peri software
+exten => _6XXXXXXXX,1,Dial(Zap/G1/${EXTEN:1})
+;exten => 8889,1,Dial(IAX2/con_peri/${EXTEN})
+;
+; By default we include the demo.  In a production system, you 
+; probably don't want to have the demo there.
+;
+
+[conferences]
+
+exten => 3330,1,MeetMe(${EXTEN}|MI)
+exten => 8598,1,MeetMe(${EXTEN}|MI)
+exten => 3010,1,MeetMe(${EXTEN}|MI)
+exten => 3020,1,MeetMe(${EXTEN}|MI)
+exten => 3030,1,MeetMe(${EXTEN}|MI)
+exten => 3040,1,MeetMe(${EXTEN}|MI)
+exten => 3050,1,MeetMe(${EXTEN}|MI)
+exten => 3060,1,MeetMe(${EXTEN}|MI)
+exten => 3070,1,MeetMe(${EXTEN}|MI)
+exten => 3080,1,MeetMe(${EXTEN}|MI)
+exten => 3090,1,MeetMe(${EXTEN}|MI)
+exten => 3100,1,MeetMe(${EXTEN}|MI)
+exten => 3110,1,MeetMe(${EXTEN}|MI)
+exten => 3120,1,MeetMe(${EXTEN}|MI)
+exten => 3130,1,MeetMe(${EXTEN}|MI)
+exten => 3140,1,MeetMe(${EXTEN}|MI)
+exten => 3150,1,MeetMe(${EXTEN}|MI)
+exten => 3160,1,MeetMe(${EXTEN}|MI)
+exten => 3170,1,MeetMe(${EXTEN}|MI)
+exten => 3180,1,MeetMe(${EXTEN}|MI)
+exten => 3190,1,MeetMe(${EXTEN}|MI)
+exten => 3200,1,MeetMe(${EXTEN}|MI)
+exten => 3210,1,MeetMe(${EXTEN}|MI)
+exten => 3220,1,MeetMe(${EXTEN}|MI)
+exten => 3230,1,MeetMe(${EXTEN}|MI)
+exten => 3240,1,MeetMe(${EXTEN}|MI)
+exten => 3250,1,MeetMe(${EXTEN}|MI)
+exten => 3260,1,MeetMe(${EXTEN}|MI)
+exten => 3270,1,MeetMe(${EXTEN}|MI)
+exten => 3280,1,MeetMe(${EXTEN}|MI)
+exten => 3290,1,MeetMe(${EXTEN}|MI)
+exten => 3300,1,MeetMe(${EXTEN}|MI)
+exten => 3310,1,MeetMe(${EXTEN}|MI)
+exten => 3320,1,MeetMe(${EXTEN}|MI)
+
+[ringgroups]
+
+[queues]
+
+[voicemenus]
+
+[voicemailgroups]
+
+[directory]
+
+[asterisk_guitools]
+exten = executecommand,1,System(${command})
+exten = executecommand,n,Hangup()
+exten = record_vmenu,1,Answer
+exten = record_vmenu,n,Playback(vm-intro)
+exten = record_vmenu,n,Record(${var1})
+exten = record_vmenu,n,Playback(vm-saved)
+exten = record_vmenu,n,Playback(vm-goodbye)
+exten = record_vmenu,n,Hangup
+exten = play_file,1,Answer
+exten = play_file,n,Playback(${var1})
+exten = play_file,n,Hangup
+
+[macro-trunkdial-failover-0.3]
+; Macro by =  Brandon Kruse <bkruse@digium.com> & Matthew O'Gorman mogorman@digium.com
+exten = s,1,Set(CALLERID(num)=${IF($[${LEN(${CID_${CALLERID(num)}})} > 2]?${CID_${CALLERID(num)}}:)})
+exten = s,n,GotoIf($[${LEN(${CALLERID(num)})} > 6]?1-dial,1)
+exten = s,n,Set(CALLERID(all)=${IF($[${LEN(${CID_${ARG3}})} > 6]?${CID_${ARG3}}:${GLOBAL_OUTBOUNDCID})})
+exten = s,n,Goto(1-dial,1)
+exten = 1-dial,1,Dial(${ARG1})
+exten = 1-dial,n,Gotoif(${LEN(${ARG2})} > 0 ?1-${DIALSTATUS},1:1-out,1)
+exten = 1-CHANUNAVAIL,1,Dial(${ARG2})
+exten = 1-CHANUNAVAIL,n,Hangup()
+exten = 1-CONGESTION,1,Dial(${ARG2})
+exten = 1-CONGESTION,n,Hangup()
+exten = 1-out,1,Hangup()
+
+[macro-stdexten]
+exten = s,1,GotoIf($[${FOLLOWME_${ARG1}} = 1]?4:2)
+exten = s,2,Dial(${ARG2},20)
+exten = s,3,Goto(s-${DIALSTATUS},1)
+exten = s,4,Macro(stdexten-followme,${ARG1},${ARG2})
+exten = s-NOANSWER,1,Voicemail(${ARG1},u)
+exten = s-NOANSWER,2,Goto(default,s,1)
+exten = s-BUSY,1,Voicemail(${ARG1},b)
+exten = s-BUSY,2,Goto(default,s,1)
+exten = _s-.,1,Goto(s-NOANSWER,1)
+exten = a,1,VoicemailMain(${ARG1})
+
+[macro-stdexten-followme]
+exten = s,1,Dial(${ARG2},20)
+exten = s,2,Followme(${ARG1},a)
+exten = s,3,Voicemail(${ARG1},b)
+exten = s-NOANSWER,1,Voicemail(${ARG1},u)
+exten = s-BUSY,1,Voicemail(${ARG1},b)
+exten = s-BUSY,2,Goto(default,s,1)
+exten = _s-.,1,Goto(s-NOANSWER,1)
+exten = a,1,VoicemailMain(${ARG1})
+
+[macro-trunkdial]
+exten = s,1,set(CALLERID(all)=${IF($["${LEN(${CALLERID(num)})}" > "6"]?${CALLERID(all)}:${ARG2})})
+exten = s,n,Dial(${ARG1})
+exten = s,n,Goto(s-${DIALSTATUS},1)
+exten = s-NOANSWER,1,Hangup
+exten = s-BUSY,1,Hangup
+exten = _s-.,1,NoOp
+
+[voicemenu-custom-1]
+include => default
+exten => s,1,Answer()
+exten => s,2,Background(record/krec/everwelcome)
+exten => s,3,WaitExten(6)
+exten => s,4,Dial(SIP/8400&SIP/8827&SIP/8818,10)
+;exten => s,5,Goto(voicemenu-custom-1,s,2)
+exten => s,5,Queue(incoming)
+
+[numberplan-custom-1]
+plancomment = Default DialPlan
+include = default
+include = parkedcalls
+
+[numberplan-custom-2]
+plancomment = Local calls only
+include = default
+include = cell_calls
+include = local_calls
+include = Toll_Free_call
+
+[numberplan-custom-3]
+plancomment = Local and STD
+exten => _60XXXXXXXXXX,1,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _60XXXXXXXXXX,n,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _60XXXXXXXXXX,n,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _60XXXXXXXXXX,n,MYSQL(Disconnect ${connid})
+exten => _60XXXXXXXXXX,n,NoOp("Enter into Authorized mode for STD calls")
+exten => _60XXXXXXXXXX,n,VMAuthenticate(${CALLERID(num)})
+exten => _60XXXXXXXXXX,n,Set(CALLERID(number)=${CID})
+exten => _60XXXXXXXXXX,n,Dial(Zap/G1/${EXTEN:1})
+include = default
+include = cell_calls
+include = local_calls
+include = Toll_Free_call
+
+[numberplan-custom-4]
+plancomment = Local STD ISD
+include = default
+include = cell_calls
+include = local_calls
+include = std_call_auth
+include = isd_calls
+include = Toll_Free_call
+
+[numberplan-custom-5]
+plancomment = Fax Local STD ISD
+include = default
+;exten => _60XXXXXXXXXX,1,MYSQL(Connect connid localhost root PeRi isystem)
+;exten => _60XXXXXXXXXX,n,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+;exten => _60XXXXXXXXXX,n,MYSQL(Fetch fetchid ${resultid} CID)
+;exten => _60XXXXXXXXXX,n,MYSQL(Disconnect ${connid})
+;exten => _60XXXXXXXXXX,n,Set(CALLERID(number)=${CID})
+exten = _6XXXXXXXXXX,1,Macro(trunkdial,${span_1}/${EXTEN:1},${span_1_cid})
+exten = _6XXXXXXXX,1,Macro(trunkdial,${span_1}/${EXTEN:1},${span_1_cid})
+; exten = _60XXXXXXXXXX,1,VMAuthenticate(${CALLERID(num)})
+exten = _60XXXXXXXXXX,1,Macro(trunkdial,${span_1}/${EXTEN:1},${span_1_cid})
+;exten = _600XXXXXXXXX!,1,NoOp(${CALLERID(num)})
+;exten = _600XXXXXXXXX!,2,VMAuthenticate(${CALLERID(num)})
+exten = _600XXXXXXXXX!,1,Macro(trunkdial,${span_1}/${EXTEN:1},${span_1_cid})
+
+[numberplan-custom-6]
+plancomment = BSNL Local
+include = default
+;exten = _6XXXXXXXXXX,1,Macro(trunkdial,${span_4}/${EXTEN:1},${span_4_cid})
+;exten = _6XXXXXXXX,1,Macro(trunkdial,${span_4}/${EXTEN:1},${span_4_cid})
+exten => _6XXXXXXXXXX,1,Dial(Zap/G2/${EXTEN:1})
+exten => _6XXXXXXXX,1,Dial(Zap/G2/${EXTEN:1})
+
+[numberplan-custom-7]
+plancomment = Local STD ISD NOauth
+include = default
+include = cell_calls
+include = local_calls
+include = std_calls_noauth
+include = isd_calls_noauth
+include = Toll_Free_call
+
+[numberplan-custom-8]
+plancomment = Local and STD
+include = std_call_auth
+
+[DID_span_1]
+include = default
+exten => 42968400,1,Goto(voicemenu-custom-1,s,1)
+exten => 42968401,1,Goto(voicemenu-custom-1,s,1)
+exten => 42968402,1,Goto(voicemenu-custom-1,s,1)
+exten => 42968732,1,Dial(SIP/4321)
+exten => 42968732,2,VoiceMail(4321)
+exten => 42968734,1,Dial(SIP/4322)
+exten => 42968734,2,VoiceMail(4322)
+exten => 42968730,1,Dial(SIP/8892)
+exten => 42968730,2,Voicemail(8892)
+exten => 42968487,1,Dial(SIP/8893)
+exten => 42968487,2,Voicemail(8893)
+exten => 42968497,1,Dial(SIP/8894)
+exten => 42968497,2,Voicemail(8894)
+exten => 42968466,1,Dial(SIP/8870)
+exten => 42968466,2,Voicemail(8870)
+exten => 42968441,1,Dial(SIP/4231)
+exten => 42968441,2,VoiceMail(4231)
+exten => 42968410,1,Dial(SIP/8410)
+exten => 42968410,2,VoiceMail(8410)
+exten => 42968492,1,Dial(SIP/8492)
+exten => 42968492,2,VoiceMail(8492)
+;exten => 42968487,1,Dial(SIP/8487)
+;exten => 42968487,2,VoiceMail(8487)
+exten => 42968491,1,Dial(SIP/8486)
+exten => 42968491,2,VoiceMail(8486)
+exten => 42968745,1,Dial(SIP/8531)
+exten => 42968745,2,VoiceMail(8531)
+exten => 42968485,1,Dial(SIP/8533)
+exten => 42968485,2,VoiceMail(8533)
+;exten => 42968730,1,Dial(SIP/8534)
+;exten => 42968730,2,VoiceMail(8534)
+exten => 42968470,1,Dial(SIP/8550)
+exten => 42968470,2,VoiceMail(8550)
+exten => 42968475,1,Dial(SIP/8475)
+exten => 42968475,2,VoiceMail(8475)
+exten => 42968416,1,Dial(SIP/8416)
+exten => 42968416,2,VoiceMail(8416)
+exten => 42968452,1,Dial(SIP/8452)
+exten => 42968452,2,VoiceMail(8452)
+exten => 42968457,1,Dial(SIP/8518)
+exten => 42968457,2,VoiceMail(8518)
+exten => 42968453,1,Dial(SIP/8522)
+exten => 42968453,2,VoiceMail(8522)
+exten => 42968454,1,Dial(SIP/8454)
+exten => 42968454,2,VoiceMail(8454)
+exten => 42968414,1,Dial(SIP/8414)
+exten => 42968414,2,VoiceMail(8414)
+exten => 42968445,1,Dial(SIP/8711); Before 8493 is there for this DID
+exten => 42968445,2,VoiceMail(8711)
+exten => 42968433,1,Dial(SIP/8840)
+exten => 42968433,2,VoiceMail(8840)
+exten => 42968472,1,Dial(SIP/8495)
+exten => 42968472,2,VoiceMail(8495)
+exten => 42968406,1,Dial(SIP/8406)
+exten => 42968406,2,VoiceMail(8406)
+exten => 42968488,1,Dial(SIP/8861)
+exten => 42968488,2,VoiceMail(8861)
+exten => 42968479,1,Dial(SIP/8419)
+exten => 42968479,2,VoiceMail(8419)
+exten => 42968495,1,Dial(SIP/8469)
+exten => 42968495,2,VoiceMail(8469)
+;exten => 42968412,1,Dial(SIP/8407)
+;exten => 42968412,2,VoiceMail(SIP/8407)
+exten => 42968412,1,Dial(SIP/8409,10)
+exten => 42968412,n,Dial(Zap/G1/9176291177)
+;exten => 42968412,n,Dial(Zap/G1/43406088)
+exten => 42968412,n,VoiceMail(8409)
+
+
+;exten => 42968412,1,Dial(SIP/8408,20)
+;exten => 42968412,2,VoiceMail(SIP/8408)
+
+
+;exten => 42968411,1,MixMonitor(${CALLERID(num)}-${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}.wav)
+
+;call divert for 8411 as on jun 4
+exten => 42968411,1,Dial(SIP/8407)
+exten => 42968411,2,VoiceMail(8407)
+
+;exten => 42968411,1,Dial(SIP/8411)
+;exten => 42968411,2,VoiceMail(8411)
+;exten => 42968409,1,Dial(SIP/8409)
+;exten => 42968409,2,VoiceMail(8409)
+exten => 42968484,1,Dial(SIP/8555)
+exten => 42968484,2,VoiceMail(8555)
+exten => 42968463,1,Dial(SIP/8463)
+exten => 42968463,2,VoiceMail(8463)
+;exten => 42968460,1,Dial(SIP/8558)  ;DiD deactivated as per ticket id 10137
+;exten => 42968460,2,VoiceMail(8558)
+exten => 42968459,1,Dial(SIP/8871)
+exten => 42968459,2,VoiceMail(8871)
+exten => 42968438,1,Dial(SIP/8438)
+exten => 42968438,2,VoiceMail(8438)
+exten => 42968458,1,Dial(SIP/8458)
+exten => 42968458,2,VoiceMail(8458)
+exten => 42968741,1,Dial(SIP/8832)
+exten => 42968741,2,VoiceMail(8832); 8418 has used before this DID
+exten => 42968493,1,Dial(SIP/8532)
+exten => 42968493,2,VoiceMail(8532)
+exten => 42968494,1,Dial(SIP/8494)
+exten => 42968494,2,VoiceMail(8494)
+exten => 42968482,1,Dial(SIP/8482)
+exten => 42968482,2,VoiceMail(8482)
+exten => 42968451,1,Dial(SIP/8567)
+exten => 42968451,2,VoiceMail(8567)
+exten => 42968471,1,Dial(SIP/8581)
+exten => 42968471,2,VoiceMail(8581)
+exten => 42968742,1,Dial(SIP/8742)
+exten => 42968742,2,VoiceMail(8742)
+exten => 42968744,1,Dial(SIP/8744)
+exten => 42968744,2,VoiceMail(8744)
+exten => 42968736,1,Dial(SIP/8736)
+exten => 42968736,2,VoiceMail(8736)
+exten => 42968421,1,Dial(SIP/8421)
+exten => 42968421,2,VoiceMail(8421)
+exten => 42968478,1,Dial(SIP/8425)
+exten => 42968478,2,VoiceMail(8425)
+exten => 42968420,1,Dial(SIP/8473)
+exten => 42968420,2,VoiceMail(8473)
+exten => 42968483,1,Dial(SIP/8483)
+exten => 42968483,2,VoiceMail(8483)
+exten => 42968477,1,Dial(SIP/8424)
+exten => 42968477,2,VoiceMail(8424)
+exten => 42968476,1,Dial(SIP/8838)
+exten => 42968476,2,VoiceMail(8838)
+exten => 42968737,1,Dial(SIP/8737)
+exten => 42968737,2,VoiceMail(8737)
+exten => 42968739,1,Dial(SIP/8739)
+exten => 42968739,2,VoiceMail(8739)
+exten => 42968738,1,Dial(SIP/8413)
+exten => 42968738,2,VoiceMail(8413)
+exten => 42968436,1,Dial(SIP/8436)
+exten => 42968436,2,VoiceMail(8436)
+;exten => 42968497,1,Dial(SIP/8497)
+;exten => 42968497,2,VoiceMail(8497)
+exten => 42968407,1,Dial(SIP/8407)
+exten => 42968407,2,VoiceMail(8407)
+exten => 42968408,1,Dial(SIP/8408)
+exten => 42968408,2,VoiceMail(8408)
+exten => 42968404,1,Dial(SIP/8404)
+exten => 42968404,2,VoiceMail(8404)
+exten => 42968405,1,Dial(SIP/8880)
+exten => 42968405,2,VoiceMail(8880)
+exten => 42968415,1,Dial(SIP/8583)
+exten => 42968415,2,VoiceMail(8583)
+exten => 42968403,1,Dial(SIP/8403)
+exten => 42968403,2,VoiceMail(8403)
+exten => 42968461,1,Dial(SIP/8461)
+exten => 42968461,2,VoiceMail(8461)
+exten => 42968740,1,Dial(SIP/8740)
+exten => 42968740,2,VoiceMail(8740)
+exten => 42968448,1,Dial(SIP/8544)
+exten => 42968448,2,VoiceMail(8544)
+exten => 42968449,1,Dial(SIP/8527)
+exten => 42968449,2,VoiceMail(8527)
+exten => 42968447,1,Dial(SIP/8447)
+exten => 42968447,2,VoiceMail(8447)
+exten => 42968450,1,Dial(SIP/8551)
+exten => 42968450,2,VoiceMail(8551)
+exten => 42968443,1,Dial(SIP/8443)
+exten => 42968443,2,VoiceMail(8443)
+exten => 42968440,1,Dial(SIP/8440)
+exten => 42968440,2,VoiceMail(8440)
+;exten => 42968444,1,MixMonitor(${CALLERID(num)}-${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}.wav)
+exten => 42968444,1,Dial(SIP/8444)
+exten => 42968444,2,VoiceMail(8444)
+exten => 42968442,1,Dial(SIP/8442)
+exten => 42968442,2,VoiceMail(8442)
+exten => 42968735,1,Dial(SIP/8735)
+exten => 42968735,2,VoiceMail(8735)
+;exten => 42968466,1,Dial(SIP/8466)
+;exten => 42968466,2,VoiceMail(8466)
+exten => 42968437,1,Dial(SIP/8437)
+exten => 42968437,2,VoiceMail(8437)
+exten => 42968446,1,Dial(SIP/8446)
+exten => 42968437,2,VoiceMail(8446)
+exten => 42968540,1,Dial(SIP/8540)
+exten => 42968540,2,VoiceMail(8540)
+
+
+
+[DID_span_2]
+include = default
+include = DID_span_1
+
+[DID_span_3]
+include = default
+include = DID_span_1
+
+[DID_span_4]
+include = default
+exten => s,1,Goto(voicemenu-custom-1,s,1)
+;exten => s,1,Dial(SIP/8400)
+
+[Toll_Free_call]
+exten => _61800XXXXXXX!,1,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _61800XXXXXXX!,2,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _61800XXXXXXX!,3,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _61800XXXXXXX!,4,MYSQL(Disconnect ${connid})
+exten => _61800XXXXXXX!,5,Set(CALLERID(number)=${CID})
+;exten => _61800XXXXXXX!,6,MixMonitor(${CALLERID(num)}-${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}.wav)
+exten => _61800XXXXXXX!,6,Dial(Zap/G1/${EXTEN:1})
+
+[cell_calls]
+exten => _6XXXXXXXXXX,1,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _6XXXXXXXXXX,2,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _6XXXXXXXXXX,3,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _6XXXXXXXXXX,4,MYSQL(Disconnect ${connid})
+exten => _6XXXXXXXXXX,5,Set(CALLERID(number)=${CID})
+;exten => _6XXXXXXXXXX,6,MixMonitor(${CALLERID(num)}-${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}.wav)
+exten => _6XXXXXXXXXX,6,Dial(Zap/G1/${EXTEN:1})
+
+
+[local_calls]
+exten => _6XXXXXXXX,1,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _6XXXXXXXX,2,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _6XXXXXXXX,3,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _6XXXXXXXX,4,MYSQL(Disconnect ${connid})
+exten => _6XXXXXXXX,5,Set(CALLERID(number)=${CID})
+;exten => _6XXXXXXXX,6,MixMonitor(${CALLERID(num)}-${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}.wav)
+exten => _6XXXXXXXX,6,Dial(Zap/G1/${EXTEN:1})
+
+
+[std_call_auth]
+exten => _60XXXXXXXXXX,1,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _60XXXXXXXXXX,n,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _60XXXXXXXXXX,n,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _60XXXXXXXXXX,n,MYSQL(Disconnect ${connid})
+exten => _60XXXXXXXXXX,n,NoOp("Enter into Authorized mode for STD calls")
+exten => _60XXXXXXXXXX,n,VMAuthenticate(${CALLERID(num)})
+exten => _60XXXXXXXXXX,n,Set(CALLERID(number)=${CID})
+exten => _60XXXXXXXXXX,n,Dial(Zap/G1/${EXTEN:1})
+
+
+[isd_calls]
+exten => _600XXXXXXXXX!,1,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _600XXXXXXXXX!,2,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _600XXXXXXXXX!,3,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _600XXXXXXXXX!,4,MYSQL(Disconnect ${connid})
+exten => _600XXXXXXXXX!,5,VMAuthenticate(${CALLERID(num)})
+exten => _600XXXXXXXXX!,6,Set(CALLERID(number)=${CID})
+;exten => _600XXXXXXXXX!,7,MixMonitor(${CALLERID(num)}-${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}.wav)
+exten => _600XXXXXXXXX!,7,Dial(Zap/G1/${EXTEN:1})
+
+
+[std_calls_noauth]
+exten => _60XXXXXXXXXX,1,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _60XXXXXXXXXX,2,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _60XXXXXXXXXX,3,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _60XXXXXXXXXX,4,MYSQL(Disconnect ${connid})
+exten => _60XXXXXXXXXX,5,Set(CALLERID(number)=${CID})
+;exten => _60XXXXXXXXXX,6,MixMonitor(${CALLERID(num)}-${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}.wav)
+exten => _60XXXXXXXXXX,6,Dial(Zap/G1/${EXTEN:1})
+
+
+[isd_calls_noauth]
+exten => _600XXXXXXXXX!,1,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _600XXXXXXXXX!,2,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _600XXXXXXXXX!,3,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _600XXXXXXXXX!,4,MYSQL(Disconnect ${connid})
+exten => _600XXXXXXXXX!,5,Set(CALLERID(number)=${CID})
+;exten => _600XXXXXXXXX!,6,MixMonitor(${CALLERID(num)}-${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}.wav)
+exten => _600XXXXXXXXX!,6,Dial(Zap/G1/${EXTEN:1})
+
+; from susan Giss office extension
+[from_ch_isystem]
+include = default
+include = cell_calls
+include = local_calls
+include = std_calls_noauth
+include = isd_calls_noauth
+include = Toll_Free_call
+
+[numberplan-custom-8]
+include =  default
+include = local_calls
+include = cell_calls
+include = std_call_auth
+
+
+
+
+[auth-test]
+comment = logon_ivr
+exten => 801,1,Answer
+exten => 801,2,GotoIf(${DB_EXISTS(auth_logon/${CALLERID(num)})}?:auth-test,s,1)
+exten => 801,3,Set(passkey_${CALLERID(num)}=${DB(auth_logon/${CALLERID(num)})})
+exten => 801,4,Set(TIMEOUT(digit)=5)
+exten => 801,5,Set(TIMEOUT(response)=10)
+exten => 801,6,Authenticate(${passkey_${CALLERID(num)}})
+exten => 801,7,Background(record/krec/loginlogoffmenu)
+exten => 801,8,WaitExten(6)
+exten => 801,9,Background(record/krec/pleaseselect)
+exten => 801,10,Background(record/krec/loginlogoffmenu)
+exten => 801,11,WaitExten(6)
+exten => 801,12,Playback(record/krec/goodbye)
+exten => i,1,Hangup
+exten => t,1,Hangup
+exten => 1,1,Answer
+exten => 1,2,Set(DB(logon/${CALLERID(num)})=0)
+exten => 1,3,Playback(record/krec/loginsuccess)
+exten => 1,4,Hangup
+exten => 2,1,Answer
+exten => 2,2,Set(DB(logon/${CALLERID(num)})=1)
+exten => 2,3,Playback(record/krec/logoffsuccess)
+exten => 2,4,Hangup
+exten => 3,1,Goto(change-passwd,s,1)
+exten => s,1,Answer
+exten => s,2,Playback(record/krec/notactive)
+exten => s,3,Hangup
+
+[change-passwd]
+exten => s,1,Answer
+exten => s,2,Read(pass_${CALLERID(num)},record/krec/enternewpasswd,4)
+exten => s,3,Read(2pass_${CALLERID(num)},record/krec/enterpasswdagain,4)
+exten => s,4,GotoIf($[${pass_${CALLERID(num)}} = ${2pass_${CALLERID(num)}}]?change-passwd,s,7:change-passwd,s,5)
+exten => s,5,Playback(record/krec/nopassmatch)
+exten => s,6,Goto(change-passwd,s,1)
+exten => s,7,Set(DB(auth_logon/${CALLERID(num)})=${pass_${CALLERID(num)}})
+exten => s,8,Playback(record/krec/passchangesuccess)
+exten => s,9,Hangup
+exten => t,1,Hangup
+
+[auth-activate]
+comment = toactivatelogon
+exten => 800,1,Answer
+exten => 800,2,GotoIf(${DB_EXISTS(auth_logon/${CALLERID(num)})}?auth-activate,800,3:auth-activate,s,1)
+exten => 800,3,Background(record/krec/alreadyactive)
+exten => 800,4,WaitExten(4)
+
+exten => 1,1,Answer
+exten => 1,2,Set(passkeyi_${CALLERID(num)}=${DB(auth_logon/${CALLERID(num)})})
+exten => 1,3,Authenticate(${passkeyi_${CALLERID(num)}})
+exten => 1,4,DBdel(auth_logon/${CALLERID(num)})
+exten => 1,5,DBdel(logon/${CALLERID(num)})
+exten => 1,6,Playback(record/krec/deactsuccess)
+exten => 1,7,Hangup
+exten => s,1,Answer
+exten => s,2,Set(DB(logon/${CALLERID(num)})=1)
+exten => s,3,Read(pass_${CALLERID(num)},record/krec/enternewpasswd,4)
+exten => s,4,Read(2pass_${CALLERID(num)},record/krec/enterpasswdagain,4)
+exten => s,5,GotoIf($[${pass_${CALLERID(num)}} = ${2pass_${CALLERID(num)}}]?auth-activate,s,8:auth-activate,s,6)
+exten => s,6,Playback(record/krec/nopassmatch)
+exten => s,7,Goto(auth-activate,s,1)
+exten => s,8,Set(DB(auth_logon/${CALLERID(num)})=${pass_${CALLERID(num)}})
+exten => s,9,Playback(record/krec/activatesuccess)
+exten => s,10,Hangup
+
+
+;exten => t,1,Goto(change-passwd,s,1)
+
+
+
+[std_calls_noauth_login]
+;exten => _60XXXXXXXXXX,1,GotoIfTime(17:01-8:00,mon-sun,*,*?std_calls_noauth_login,off,1)
+exten => _60XXXXXXXXXX,1,GotoIf(${DB_EXISTS(auth_logon/${CALLERID(num)})}?std_calls_noauth_login,${EXTEN},2:std_calls_noauth_login,${EXTEN},4)
+exten => _60XXXXXXXXXX,2,Set(statuscheck_${CALLERID(num)}=${DB(logon/${CALLERID(num)})})
+exten => _60XXXXXXXXXX,3,GotoIf(${statuscheck_${CALLERID(num)}} != 0?std_calls_noauth_login,s,1:std_calls_noauth_login,${EXTEN},4)
+exten => _60XXXXXXXXXX,4,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _60XXXXXXXXXX,5,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _60XXXXXXXXXX,6,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _60XXXXXXXXXX,7,MYSQL(Disconnect ${connid})
+exten => _60XXXXXXXXXX,8,Set(CALLERID(number)=${CID})
+exten => _60XXXXXXXXXX,9,Dial(Zap/G1/${EXTEN:1})
+exten => s,1,Playback(record/pleaselogon)
+exten => s,2,Hangup
+;exten => off,1,Playback(record/afterhours)
+;exten => off,2,Hangup
+
+[isd_calls_noauth_login]
+;exten => _600XXXXXXXXX!,1,GotoIfTime(17:01-8:00,mon-sun,*,*?isd_calls_noauth_login,off,1)
+exten => _600XXXXXXXXX!,1,GotoIf(${DB_EXISTS(auth_logon/${CALLERID(num)})}?isd_calls_noauth_login,${EXTEN},2:isd_calls_noauth_login,${EXTEN},4)
+exten => _600XXXXXXXXX!,2,Set(statuscheck_${CALLERID(num)}=${DB(logon/${CALLERID(num)})})
+exten => _600XXXXXXXXX!,3,GotoIf(${statuscheck_${CALLERID(num)}} != 0?isd_calls_noauth_login,s,1:isd_calls_noauth_login,${EXTEN},4)
+exten => _600XXXXXXXXX!,4,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _600XXXXXXXXX!,5,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _600XXXXXXXXX!,6,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _600XXXXXXXXX!,7,MYSQL(Disconnect ${connid})
+exten => _600XXXXXXXXX!,8,Set(CALLERID(number)=${CID})
+exten => _600XXXXXXXXX!,9,Dial(Zap/G1/${EXTEN:1})
+exten => s,1,Playback(record/pleaselogon)
+exten => s,2,Hangup
+;exten => off,1,Playback(record/afterhours)
+;exten => off,2,Hangup
+
+[local_calls_login]
+;exten => _6XXXXXXXX,1,GotoIfTime(17:01-8:00,mon-sun,*,*?local_calls_login,off,1)
+exten => _6XXXXXXXX,1,GotoIf(${DB_EXISTS(auth_logon/${CALLERID(num)})}?local_calls_login,${EXTEN},2:local_calls_login,${EXTEN},4)
+exten => _6XXXXXXXX,2,Set(statuscheck_${CALLERID(num)}=${DB(logon/${CALLERID(num)})})
+exten => _6XXXXXXXX,3,GotoIf(${statuscheck_${CALLERID(num)}} != 0?local_calls_login,s,1:local_calls_login,${EXTEN},4)
+exten => _6XXXXXXXX,4,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _6XXXXXXXX,5,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _6XXXXXXXX,6,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _6XXXXXXXX,7,MYSQL(Disconnect ${connid})
+exten => _6XXXXXXXX,8,Set(CALLERID(number)=${CID})
+exten => _6XXXXXXXX,9,Dial(Zap/G1/${EXTEN:1})
+exten => s,1,Playback(record/pleaselogon)
+exten => s,2,Hangup
+;exten => off,1,Playback(record/afterhours)
+;exten => off,2,Hangup
+
+[cell_calls_login]
+;exten => _6XXXXXXXXXX,1,GotoIfTime(17:01-8:00,mon-sun,*,*?cell_calls_login,off,1)
+exten => _6XXXXXXXXXX,1,GotoIf(${DB_EXISTS(auth_logon/${CALLERID(num)})}?cell_calls_login,${EXTEN},2:cell_calls_login,${EXTEN},4)
+exten => _6XXXXXXXXXX,2,Set(statuscheck_${CALLERID(num)}=${DB(logon/${CALLERID(num)})})
+exten => _6XXXXXXXXXX,3,GotoIf(${statuscheck_${CALLERID(num)}} != 0?cell_calls_login,s,1:cell_calls_login,${EXTEN},4)
+exten => _6XXXXXXXXXX,4,MYSQL(Connect connid localhost root PeRi isystem)
+exten => _6XXXXXXXXXX,5,MYSQL(Query resultid ${connid} SELECT\ callerid\ from\ out_caller\ where\ exten=${CALLERID(number)})
+exten => _6XXXXXXXXXX,6,MYSQL(Fetch fetchid ${resultid} CID)
+exten => _6XXXXXXXXXX,7,MYSQL(Disconnect ${connid})
+exten => _6XXXXXXXXXX,8,Set(CALLERID(number)=${CID})
+exten => _6XXXXXXXXXX,9,Dial(Zap/G1/${EXTEN:1})
+exten => s,1,Playback(record/pleaselogon)
+exten => s,2,Hangup
+;exten => off,1,Playback(record/afterhours)
+;exten => off,2,Hangup
+
+
+[numberplan-custom-login]
+plancomment = Local STD ISD 
+include = default
+include = cell_calls_login
+include = local_calls_login
+include = std_calls_noauth_login
+include = isd_calls_noauth_login
+include = Toll_Free_call
+include = auth-test
+include = auth-activate
+
+
+[numberplan-custom-login-1]
+plancomment = Local STD 
+;include = default
+include = local_calls_login
+include = cell_calls_login
+;include = local_calls_login
+include = std_calls_noauth_login
+include = Toll_Free_call
+include = auth-test
+include = auth-activate
+include = default
+
+
+[numberplan-custom-login-2]
+plancomment = Local Only
+include = local_calls_login
+include = cell_calls_login
+include = Toll_Free_call
+include = auth-test
+include = auth-activate
+include = default
+
+[DLPN_Test]
+plancomment = testing
+include = default
+exten => _6XXXXXXXXXX,9,Dial(Zap/G2/${EXTEN:1})

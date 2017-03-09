@@ -1,0 +1,51 @@
+
+<?php
+	
+?>
+<?php
+	$process = mysql_query("SELECT * FROM process WHERE hierarchy like '%".$_SESSION['userName']."%'");
+	echo "<table width='100%' cellpadding='2' cellspacing='2'>";
+	echo "<tr>
+ 			<th width='25%' align='left'>Select the Process</th>
+ 			<th width='75%' align='left'>
+ 			<select name='process' id='process'>
+ 			<option value='-1'>--Select Process--</option>
+ 		 ";
+	while($processResult = mysql_fetch_row($process))
+	{
+		echo "<option value='$processResult[0]'>$processResult[1]</option>";
+	}
+	echo "</table>";
+ 	
+	$customerMaster = mysql_query("SELECT * FROM customerMaster ORDER BY id");
+ 	echo "<table width='100%' cellpadding='2' cellspacing='2'>";
+ 	echo "<tr>
+ 			<th width='3%' align='left'><input type='checkbox' name='checkall' id='checkall' onclick='checkuncheckall()' /></th>
+ 			<th width='20%' align='left'>Name</th>
+ 			<th width='22%' align='left'>EMail</th>
+ 			<th width='40%' align='left'>Address</th>
+ 			<th width='15%' align='left'>Phone</th>
+ 		  </tr>";
+ 	$i = 0;
+	while($customerResult = mysql_fetch_row($customerMaster))
+	{
+		echo "<tr>
+	 			<td width='3%'><input type='checkbox' name='cust[]' id='cust$i' value='$customerResult[0]' /></td>
+	 			<td width='20%'>$customerResult[1] $customerResult[2]</td>
+	 			<td width='22%'>$customerResult[3]</td>
+	 			<td width='40%'>$customerResult[4]</td>
+	 			<td width='15%'>$customerResult[5]</td>
+	 		  </tr>";
+		echo "<input type='hidden' name='v$customerResult[0]' value='$customerResult[0],$customerResult[1],$customerResult[2],$customerResult[3],$customerResult[4],$customerResult[5]' />";	
+		$i++;
+	}
+	$i--;
+	echo "<input type='hidden' id='totcustomer' name='totcustomer' value='$i' />";
+	echo "</table>";
+?>
+<table width="100%" cellpadding="2" cellspacing="2">
+<tr>
+	<td align="center"><input type="submit" name="submit" value="Next" /></td>
+</tr>
+</table>
+</form>

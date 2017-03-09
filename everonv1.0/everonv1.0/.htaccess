@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteRule -extn-(.*)-pass-(.*)-m-(.*)-s-(.*)-i-(.*)-pextn-(.*)-ppass-(.*)-pm-(.*)-ps-(.*)-pi-(.*)-mode-(.*)\.htm conferenceUpdate.php?extn=$1&pass=$2&m=$3&s=$4&i=$5&pextn=$6&ppass=$7&pm=$8&ps=$9&pi=$10$5&mode=$11
+RewriteRule -phn-(.*)-pass-(.*)-m-(.*)-s-(.*)-i-(.*)\.htm conferenceUpdate.php?phn=$1&pass=$2&m=$3&s=$4&i=$5
+RewriteRule -phn-(.*)-pass-(.*)\.htm conferenceOptions.php?phn=$1&pass=$2
+
+

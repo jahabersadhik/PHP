@@ -1,0 +1,90 @@
+<?php
+session_start();
+include("../connection.php");
+
+$url= $_POST['dialingId'];
+$currentTime = date('Y-m-d H:i:s');
+$fromdatetime = str_replace("/","-",$_POST['callbackdate'])." ".$_POST['callbacktime'];
+$fromdatetime = date('Y-m-d',strtotime($fromdatetime));
+$todatetime = date('Y-m-d',strtotime("$fromdatetime +120 minute"));
+
+
+if($url != ""){ 
+	$Sql_Select = mysql_query("SELECT * FROM manualDialing WHERE dialingId= '".$url."'");
+	$rowPredictive = mysql_fetch_array($Sql_Select);
+
+	$phone = $rowPredictive['phone'];
+	$callDate = $rowPredictive['callDate'];
+	$extension = $rowPredictive['calledExtension'];
+	//Change Database (ie) Demokit database to CDR Database.	
+	$db_name_cdr = "cdr";
+	mysql_select_db("$db_name_cdr",$connection)or die("Cannot select DB");
+	
+	$QueryCDR = mysql_query("SELECT billsec FROM cdr WHERE calldate like '%".$callDate."%' AND dst = '".$phone."' ORDER BY calldate ASC LIMIT 0,1");
+	$rowCDR = mysql_fetch_array($QueryCDR);
+	$billsec = $rowCDR['billsec'];
+	
+	$totTime = strtotime(".$callDate.") + $billsec;
+	$endDateTime = date("Y-m-d G:i:s",$totTime);
+
+	@mysql_close();
+	
+	//Change Datebase (ie) CDR Database to Demokit Databse
+	$connect = mysql_connect("localhost","root","PeRi")or die("Cannot connect to the DB");
+	$db_name = "callcenter";
+	mysql_select_db("$db_name",$connect)or die("Cannot select DB");
+	
+	$wrappTime = strtotime(date("Y-m-d G:i:s")) - $totTime; 
+
+	if($rowPredictive['comments']==""){
+		$comments = '~!'.date('Y-m-d').'~'.$_REQUEST['txtADesc'].'~'.$_REQUEST['txtCDesc']."@"."WrapTime:".$wrappTime; 
+	} else {
+		$comments = $rowPredictive['Comments'].'~!'.date('Y-m-d').'~'.$_REQUEST['txtADesc'].'~'.$_REQUEST['txtCDesc']."@"."WrapTime:".$wrappTime; 
+	}
+
+	$dialQuery = "update manualDialing set dialedComment='".$_POST['dialerDisposition']."',callBackDate='$fromdatetime',comments='$comments' where  dialingId= '".$url."'";
+	$dialResult=mysql_query($dialQuery)or die("Cant Update table"); 
+	
+	//if the dialerDisposition is Do not call list update customermaster table status is 1 (Two).
+	if($_POST['dialerDisposition']=="DNC"){
+		$masterQuery = mysql_query("UPDATE customerMaster SET status ='1' WHERE phone = ".$phone."") or die("Cant update dialerDisposition");
+	} 
+	
+	//if the dialerDisposition is Block List update customermaster table status is 2 (Two).
+	if($_POST['dialerDisposition']=="Block"){
+		$masterQuery = mysql_query("UPDATE customerMaster SET status ='2' WHERE phone = ".$phone."") or die("Cant update dialerDisposition");
+		asteriskLog($phone);
+	}
+	
+	
+	if($_REQUEST['selAfterSubmitting'] == 'Break')
+		mysql_query("update loginLog set status='2' where empId='".$_SESSION['userName']."' AND extension='$extension' AND logoutDate='0000-00-00'");
+	if($_REQUEST['selAfterSubmitting'] == 'loggedOut')
+		mysql_query("update loginLog set status='0',logoutDate='".date('Y-m-d')."',logoutTime='".date('G:i:s')."' where empId='".$_SESSION['userName']."' AND extension='$extension' AND logoutDate='0000-00-00'");
+}
+if($_POST['callDisposition'] == "Do Not Call" || $_POST['callDisposition'] == "Invalid Call")
+{
+	if($txtClickPhone!="")
+	{	
+		$dncQuery = "select * from dncList where phoneNumber='".$txtClickPhone."'";
+		$dncResult=mysql_query($dncQuery)or die(mysql_error());
+		$dncCountNo = mysql_num_rows($dncResult);
+		if(!$dncCountNo)
+		{
+			$dncInsQuery = "insert into dncList phoneNumber = '".$txtClickPhone."'";
+			$dncInsResult=mysql_query($dncInsQuery)or die(mysql_error());	
+		}
+	}
+} 
+if($dialResult)
+{ 
+?>
+<script>
+	opener.location.reload(true);
+	self.close();
+</script>
+<?php 
+} 
+?>
+
+

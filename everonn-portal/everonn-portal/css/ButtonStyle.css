@@ -1,0 +1,323 @@
+.bold
+{
+	FONT-SIZE: 12px;
+    /*FONT-WEIGHT: bold;*/
+    COLOR: #ffffff
+}
+.DropDownBox
+{
+    FONT-SIZE: 8pt;
+    COLOR: #000080;
+    FONT-FAMILY: Arial;
+    bordercolor: red
+}
+.NormalButton
+{
+    BORDER-RIGHT: midnightblue 2px solid;
+    BORDER-TOP: white 1px solid;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    BORDER-LEFT: white 1px solid;
+    COLOR: #000000;
+    BORDER-BOTTOM: midnightblue 2px solid;
+    font-family:Arial;
+    letter-spacing:1px;
+/*    BACKGROUND-COLOR: #33339F */ 
+    /*BACKGROUND-COLOR: #657383;*/
+    /*BACKGROUND-COLOR: #92b7ef;*/
+    BACKGROUND-COLOUR: #c0c0c0;
+}
+.NormalButtonWhite
+{
+    BORDER-RIGHT: midnightblue 2px solid;
+    BORDER-TOP: white 1px solid;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    BORDER-LEFT: white 1px solid;
+    COLOR: white;
+    BORDER-BOTTOM: midnightblue 2px solid;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #ff8f33
+}
+.NormalTextBox
+{
+    BORDER-RIGHT: #0a246a 1px solid;
+    BORDER-TOP: #0a246a 1px solid;
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 12px;
+    BORDER-LEFT: #0a246a 1px solid;
+    BORDER-BOTTOM: #0a246a 1px solid;
+    FONT-FAMILY: Arial
+}
+.MandatoryTextBox
+{
+    BORDER-RIGHT: #0a246a 1px solid;
+    BORDER-TOP: #0a246a 1px solid;
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 11px;
+    BORDER-LEFT: #0a246a 1px solid;
+    BORDER-BOTTOM: #0a246a 1px solid;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #FFFFFF;
+}
+.ReadonlyTextBox
+{
+    BORDER-RIGHT: 0;
+    BORDER-TOP: 0;
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 12px;
+    BORDER-LEFT: 0;
+    BORDER-BOTTOM:0;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #ffffff;
+}
+.NormalFont
+{
+    FONT-SIZE: 14px;
+    FONT-FAMILY: Arial
+    COLOR: #ff8f33;
+}
+.WelCome
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    /*COLOR:#1b9ebf;*/
+    COLOR:#a24116;
+	FONT-FAMILY: Arial;
+    TEXT-DECORATION: none;
+	}
+.sublinks
+{
+    /*FONT-WEIGHT: bold;*/
+    /*FONT-SIZE: 14px;*/
+    FONT-SIZE: 12px;
+/*    COLOR: #013f89; */
+	COLOR: #333333;
+    font-family:Arial;
+    letter-spacing:1px;
+    TEXT-ALIGN: center;
+    TEXT-DECORATION: none;
+    FONT-WEIGHT: bold;
+}
+label
+{
+    /*FONT-WEIGHT: bold;*/
+    FONT-SIZE: 12px;
+/*    COLOR: #013f89; */
+	COLOR: #333333;
+    font-family:Arial;
+    letter-spacing:1px;
+    TEXT-ALIGN: ;
+    TEXT-DECORATION: none;
+    FONT-WEIGHT: bold;
+}
+A.sublinks:hover
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    COLOR: #ffffff;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.blackred
+{
+    PADDING-LEFT: 15px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    COLOR: #ff8f33;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+A.blackred:hover
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    COLOR: #ffffff;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.headings
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 18px;
+    /*COLOR: #f6821a;*/
+    COLOR:#1b9ebf;
+	FONT-FAMILY: Arial;
+    TEXT-DECORATION: none;
+	}
+.Reportheadings
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 16px;
+    COLOR: #315ca0;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: Underline;
+}
+.PrintFont
+{
+    FONT-SIZE: 11px;
+    FONT-FAMILY: Arial;
+}
+.footer
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #ffffff;
+    /*BACKGROUND: #92b7ef;*/
+    BACKGROUND: #C0C0C0;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.menu
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    COLOR: #ffffff;
+    letter-spacing:1px;
+    FONT-FAMILY: Arial; 
+    TEXT-DECORATION: none
+}
+.menu:hover
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    letter-spacing:1px;
+    COLOR: #69CAF4;
+    FONT-FAMILY: Arial; 
+    TEXT-DECORATION: none
+}
+.welcomeadmin
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    COLOR: #013F89;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.Newbutton
+{
+    BORDER-RIGHT: midnightblue 2px solid;
+    BORDER-TOP: white 1px solid;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    BORDER-LEFT: white 1px solid;
+    COLOR: white;
+    BORDER-BOTTOM: midnightblue 2px solid;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #ff8f33
+}
+.NormalFontings
+{
+    FONT-SIZE: 10px;
+    /*FONT-FAMILY: Arial;*/
+    COLOR: #000000;
+}
+
+/*Credits: Dynamic Drive CSS Library */
+/*URL: http://www.dynamicdrive.com/style/ */
+
+a.boldbuttons{
+background: transparent url('images/roundedge-gray-left.gif') no-repeat top left;
+display: block;
+float: left;
+font: bold 13px Arial; /* Change 13px as desired */
+line-height: 22px; /* This value + 4px + 4px (top and bottom padding of SPAN) must equal height of button background (default is 30px) */
+height: 30px; /* Height of button background height */
+padding-left: 8px; /* Width of left menu image */
+text-decoration: none;
+
+}
+
+a:link.boldbuttons, a:visited.boldbuttons, a:hover.boldbuttons, a:active.boldbuttons{
+color: white; /*button text color*/
+}
+
+a.boldbuttons span{
+background: transparent url('images/roundedge-gray-right.gif') no-repeat top right;
+display: block;
+padding: 4px 10px 4px 2px; /*Set 10px to be equal or greater than'padding-left' value above*/
+}
+
+a:hover.boldbuttons{ /* Hover state CSS */
+text-decoration: underline;
+}
+
+
+/*.buttonwrapper{ *//* Container you can use to surround a CSS button to clear float */
+/*overflow: hidden; *//*See: http://www.quirksmode.org/css/clearing.html */
+/*width: 100%;*/
+/*}*/
+
+
+/*Credits: Dynamic Drive CSS Library */
+/*URL: http://www.dynamicdrive.com/style/ */
+
+a.ovalbutton{
+background: transparent url('../images/oval-blue-left.gif') no-repeat top left;
+display: block;
+float: left;
+/*float: center;*/
+font: normal 13px Tahoma; /* Change 13px as desired */
+line-height: 16px; /* This value + 4px + 4px (top and bottom padding of SPAN) must equal height of button background (default is 24px) */
+height: 24px; /* Height of button background height */
+padding-left: 11px; /* Width of left menu image */
+text-decoration: none;
+}
+
+a:link.ovalbutton, a:visited.ovalbutton, a:active.ovalbutton{
+color: #494949; /*button text color*/
+}
+
+a.ovalbutton span{
+background: transparent url('../images/oval-blue-right.gif') no-repeat top right;
+display: block;
+padding: 4px 11px 4px 0; /*Set 11px below to match value of 'padding-left' value above*/
+}
+
+a.ovalbutton:hover{ /* Hover state CSS */
+background-position: bottom left;
+}
+
+a.ovalbutton:hover span{ /* Hover state CSS */
+background-position: bottom right;
+color: black;
+}
+
+.buttonwrapper{ /* Container you can use to surround a CSS button to clear float */
+overflow: hidden; /*See: http://www.quirksmode.org/css/clearing.html */
+width: 100%;
+align:center;
+}
+.textbox_ton{
+	width:50px;
+}
+.textbox_tot{
+	width:70px;
+}
+select{
+	width : 145px;
+	height : 20px;
+	font-size : 12px;
+}
+.sub_head {
+	background-color : #147EBC;
+}
+.sub_head th {
+	font-size : 12px;
+	font-weight : bold;
+	color : #ffffff;
+	height : 20px;
+}
+.multipleSel{
+	width : 145px;
+	height : 60px;
+	font-size : 12px;
+}
+.heading
+{
+         font-family:verdana;
+         font-size:25px;
+         color:#06699d;
+         font-weight:bold;
+         text-align:center;
+}

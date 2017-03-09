@@ -1,0 +1,1177 @@
+/* $Id: zen-classic.css,v 1.9 2008/09/21 15:09:48 johnalbin Exp $ */
+
+/*
+ * COMMON STYLES
+ */
+
+ 
+  
+  #page
+  {
+    color: #111;
+    width: 991px;
+  }
+
+  #container
+  {
+    margin: 0;
+    background: #fff url(images/body-gradient.png) top left repeat-y;  
+    border-right: solid 1px #e4e4e4;
+  }
+  
+  #squeeze 
+  {
+    margin: 20px 0;
+    background: #fff url(images/content-top.png) top left no-repeat; 
+    min-height:400px;
+}          
+
+  #header-region,
+  #closure-blocks
+  {
+    margin: 0 10px;
+  }
+
+  #main .node .content
+  {
+    color: #333;  
+  }
+
+  div.content, div.links
+  {
+    world-size: 92%;
+  }
+
+  .block h3
+  {
+    font-size: 122%;
+  }
+
+  .book .body
+  {
+    padding: 0 0 0.5em 0;
+    margin: 0;
+  }
+  
+  iframe  
+  {
+      frameborder:0;
+      border: 0px solid #FFFFFF;
+      height:700px;
+      width:100%;
+border-top-width: 0px;
+border-right-width: 0px;
+border-bottom-width: 0px;
+border-left-width: 0px;
+  }
+  .trainingtable td {
+     padding: 2px 5px;
+     font-size: 90%;
+     vertical-align: text-top;
+  }
+  .trainingtable td table {
+  width:100%;
+  }
+  .trainingtable td table th {
+    background-color:#b20a2a;
+    color: #fff;
+    padding:2px 5px;
+    border: solid 1px #000;
+  }
+  .trainingtable td table td {
+    padding:2px 5px;
+    color: #000;
+    border: solid 1px #000;
+  }
+  
+  .trainingtable td .tablefield th {
+    background-color: #0146ad;
+  }  
+ 
+ .actionitem, .inquire{
+ float:right; 
+ width:84px; 
+ height:28px;
+ padding: 3px 3px; 
+ margin:5px 5px 5px 5px; 
+ text-align:center;
+ background: url(images/actionbutton.png) top left no-repeat;
+ }
+
+ .actionitem.smaller {
+ font-size: .7em;
+ }
+
+ .inquire {
+ background: url(images/bluebutton.png) top left no-repeat;
+ font-size: .85em;
+ }
+
+ .actionitem a, .inquire a {
+ font-weight:bold;
+ color:#fff;
+ }  
+ .actionitem a:hover, .inquire a:hover {
+ font-weight:bold;
+ color:#fff;
+ text-decoration:none;
+ }  
+    
+    
+    
+/*
+ * HEADER STYLES
+ */
+  #header {
+    height:100px;
+    background: transparent url(images/head.png) no-repeat;    
+  }
+    
+  #logo-title
+  {
+clear: left;    margin:0;
+    padding:0;
+    width:100%;
+  }
+  #logo
+  {
+    padding: 10px 0 0 0;
+  }
+  
+  #site-slogan, #sitelinks, #loginlinks, #language-interface 
+  {
+    display: inline;
+  }  
+  
+  #sitelinks, #language-interface 
+  {
+    width: 240px;
+    float: left;
+  }  
+  #loginlinks
+  {
+      _width: 250px;
+      float: left;
+  }  
+
+  #site-slogan a
+  {
+    color: #fff;
+    font-size: 85%;
+    height: 30px;
+    position:absolute;
+    padding: 36px 0 0 10px;
+  } 
+  #site-slogan a:hover
+  {
+    color: #fff;
+    text-decoration: underline;
+  }     
+  #hotlinks 
+    {
+        width:410px;
+        _width: 400px;
+        height:30px;
+	float: right;
+
+    }
+  #hotlinks #download-button  {
+        cursor: pointer;width: 130px; height:30px;float:left;margin:0; 
+	display:inline;
+	float:left;
+	}
+	
+  #hotlinks #contact-button {
+	display:inline;
+        cursor: pointer;width: 250px; height:30px;float:right;margin:0 0 0 10px; 
+   }
+
+  #name-and-slogan
+  {
+    display: inline;
+  }
+
+  #site-name
+  {
+    margin: 0;
+    display: inline;
+    font-size: 246%;
+  }
+
+  #site-name a, #site-name a:hover
+  {
+    font-family: "Trebuchet MS", "Bitstream Vera Sans", Verdana, Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    color: #6DA6E2;
+    margin: 0;
+    padding: 0;
+  }
+
+  .breadcrumb
+  {
+    margin: 0;
+    padding: 0;
+    font-size: 85%;
+    margin-left: 10px; /* #header-region already has 10px */
+  }
+
+  /* "Skip to Main Content" link
+   *
+   * This link useful for both blind people and people with mobility impairments
+   * who cannot use a mouse.
+   */
+
+  #skip-nav
+  {
+    margin: 0 !important;
+    padding-left: 20px;
+    font-size: 0.8em;
+    line-height: 1;
+  }
+
+  #skip-nav a
+  {
+    padding: 1px 10px;
+  }
+
+  #skip-nav a:link, #skip-nav a:visited
+  {
+    color: #D7E3F0; /* same as background color */
+  }
+
+  #skip-nav a:hover, #skip-nav a:active, #skip-nav a:focus
+  {
+    color: #ffffff;
+    background: #2763A5;
+    text-decoration: none;
+  }
+
+  /* Alternatively, the skip-nav link can be completely hidden until a user tabs
+     to the link. Un-comment the following CSS to use this technique. */
+  /*
+  #skip-nav a, #skip-nav a:hover, #skip-nav a:visited
+  {
+    position: absolute;
+    left: 0;
+    top: -500px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  #skip-nav a:active, #skip-nav a:focus
+  {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+  #logo-title
+  {
+    margin: 10px 20px 0 20px;
+  }
+  */
+
+/*
+ * MENU STYLES
+ */
+
+  div.menu
+  {
+    margin-top: 0px;
+  }
+  #top-nav
+  {
+    margin: 0;
+    padding: 0;
+    font-size: 0.8em;
+    height:26px;
+    background: #034970 url(images/background.png);    
+  }
+
+  #primary
+  {
+    font-size: 85%;
+    margin: 9px 0 0 0;
+    line-height: normal;
+    padding: 0 0 0 0px;
+    border-bottom: 1px solid #ffffff;
+    background-color: #7b7b7b; 
+    height:23px;
+  }
+
+  #primary ul
+  {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+  }
+
+  #primary ul.links li,
+  #secondary ul.links li
+  {
+    display: inline;
+    border-left: none;
+    margin: 0;
+    padding: 0 0 0 10px;
+  }
+
+  #primary a
+  {
+    font-weight: bold;
+    display: block;
+    float: left;
+  }
+
+  #sitelinks
+  {
+    padding: 0;
+    float:right;
+    margin: 1px 0 0 0;
+  }
+
+  #loginlinks, #block-languageinterface-0
+  {
+    padding: 0;
+    float:left;
+    margin: 1px 0 0 0;
+  }
+
+  #sitelinks ul, #loginlinks ul, #block-languageinterface-0 ul
+  {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width:auto;    
+    height:26px;
+    display:block;
+  }
+#block-languageinterface-0 ul 
+{
+margin:0 0 0 5px;
+}
+#sitelinks ul li 
+{
+        float: right;
+}
+  #sitelinks ul li a
+  {
+    color: #fff;
+    font-size: 85%;
+    text-decoration: none;
+    padding: 0 0 1px 12px;
+    background: url(images/linkblue.png) center left no-repeat;
+    margin: 0 0 0 15px;    
+  }
+  
+#loginlinks ul li, #block-languageinterface-0 ul li 
+{
+        float: left;
+}
+
+#block-languageinterface-0 ul li  {
+    list-style: none ;
+    background: url(images/linkgreen.png) center left no-repeat;    
+}    
+
+#loginlinks ul li a
+ {
+    color: #fff;
+    font-size: 85%;
+    text-decoration: none;
+    padding: 0 5px 1px 12px;
+    background: url(images/linkgreen.png) center left no-repeat;    
+    margin: 0 15px 0 0;   
+ }
+ 
+ 
+ #language-label{
+     color: #fff;
+     font-size: 85%;
+     text-decoration: none;
+     padding: 0 0 1px 22px;
+     background: url(images/world.png) center left no-repeat;    
+     margin: 1px 15px 0 0;
+     height: 20px;
+     width: 90px;
+     display:inline;
+     float:left;
+}
+ 
+ 
+#block-languageinterface-0 ul li a 
+{
+    color: #fff;
+    text-decoration: none;
+    padding: 0 5px 2px 12px; 
+    margin: 0 15px 0 0;
+    font-size: 85%;   
+}
+
+#sitelinks a:hover, #loginlinks a:hover, #block-languageinterface-0 a:hover
+  {
+    text-decoration: underline;
+  }
+
+.node-type-partner 
+  {
+    padding: 3px 0;
+  }
+        
+.node-type-partner .partnerblock {
+float:left;
+padding:10px;
+width:180px;
+text-align:center;
+}
+.node-type-partner p {
+float:right;
+padding:10px 0 0 0;
+width:320px;
+}
+
+.node-type-partner legend { 
+    display:block;
+}
+
+.node-type-partner legend a {
+    font-weight:bold;
+    width:520px;    
+    display:block;
+    margin:0;
+    padding:0;
+}
+.node-type-partner .views-row-odd, .node-type-partner .views-row-even, .node-inner
+{
+    margin:0;
+}
+
+.node-type-partner .node-inner span 
+{
+    float:right;
+    padding: 0 20px 0 0;
+    text-align:right;
+    position:absolute;
+    width:520px;
+    background: transparent url(images/rowbg.gif) repeat-x;    
+} 
+.view-try .view-header,
+.view-buy .view-header,
+.view-discover .view-header,
+.view-related .view-header  
+{
+        background: transparent url(images/view-header.png) no-repeat;
+        width:216px;
+        color:#fff;
+        font-weight:bold; 
+        font-size:100%;
+        padding:3px 0 3px 10px;
+}
+
+.view-buy .view-header 
+{
+            background-position:0 -35px;     
+}
+
+.view-related .view-header 
+{
+            background-position:0 -103px;     
+}
+
+.view-discover .view-header 
+{
+            background-position:0 -68px;     
+}
+
+
+
+.view-try .view-content,
+.view-buy .view-content,
+.view-discover .view-content,
+.view-related .view-content 
+{
+        background: transparent url(images/view-content.png) repeat-y;
+        width:216px;
+        font-weight:bold; 
+
+}
+.view-try .view-content .item-list,
+.view-buy .view-content .item-list,
+.view-discover .view-content .item-list,
+.view-related .view-content .item-list
+{
+        background: transparent url(images/view-bottom.png) left bottom no-repeat;
+
+}
+.view-content .item-list ul
+{
+        padding: 5px 0;
+}    
+
+.view-content .item-list ul li
+{
+        list-style-image:none;
+        list-style-type:none;
+        font-size:80%;      
+}    
+
+.view-content .item-list li a.active, 
+.view-content .item-list li a:active  
+{
+        color:#70c3e8;
+}
+   
+.banner {
+	background: #fff url(http://www.jaspersoft.com/sites/all/themes/zen/zen_classic/images/banners/banner-blue-bg.gif) repeat-x left top;
+	height: 250px;
+	width: 225px;
+}
+
+.banner h1 {
+	padding: 10px 10px 30px 10px;
+}
+
+.banner h1 a{
+	color: #fff;
+	font-size: 1.2em;
+	line-height: 1.3em;
+}
+
+.banner h2 a{
+	color: #eee;
+	font-size: 1.1em;
+}
+
+.banner h3 a{
+	color: #eee;
+	font-size: 1em;
+}
+
+.banner h4 a{
+	color: #eee;
+	font-size: .8em;
+}
+
+/*
+ * LINK STYLES
+ */
+
+  ul.links
+  {
+    text-align: left;
+  }
+
+  ul.links li
+  {
+    border-left: 1px solid #9cf;
+  }
+
+  .taxonomy
+  {
+    margin: 0;
+    padding: 0;
+    display: inline;
+  }
+
+  .taxonomy ul.links li
+  {
+    border: none;
+    padding: 0 .1em 0 .2em;
+  }
+
+  .taxonomy ul.links li:after
+  {
+    content: ",";
+  }
+
+  .taxonomy ul.links li.last:after
+  {
+    content: "";
+  }
+
+  ul.links li.first
+  {
+    padding-left: 0;
+    border: none;
+  }
+
+  .links
+  {
+    color: #999;
+  }
+
+  .links a
+  {
+    padding: 0 .1em 0 .1em;
+  }
+
+  .submitted, .taxonomy
+  {
+    font-size: 85%;
+    color: #999;
+  }
+
+/*
+ * FORM STYLES
+ */
+
+  input, textarea, textfield
+  {
+    margin: 0;
+    color: #000;
+    font-family: Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
+    padding: 1px;
+    font-size: 100%;
+  }
+
+  input.form-checkbox, input.form-radio
+  {
+    border: none;
+  }
+    #search 
+    {
+            width: 191px;
+            float:right;
+            text-align:right;
+            margin: 0;
+            padding: 0;
+    }
+  #search .form-text, #user-login-form .form-text
+  {
+    color: #444;
+    border: 1px solid #6191C5;
+    padding: 1px;
+    margin: 0;
+  }
+
+  .form-submit, .button
+  {
+    padding: 0;
+  }
+
+  #search .button,
+  #user-login-form .button,
+  #user-login-form .form-submit
+  {
+    background-color: #68A0D9;
+    color: #fff;
+    font-weight: bold;
+  /*  border: 1px solid #4070A1; */
+  }
+
+  #user-login-form
+  {
+    text-align: left;
+  }
+
+  #user-login-form .item-list ul
+  {
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+
+/*
+ * OpenID
+ *
+ * The default styling for the OpenID login link seems to assume Garland's
+ * styling of list items.
+ */
+  #user-login-form li.openid-link, /* The "Log in using OpenID" links. */
+  #user-login li.openid-link
+  {
+    margin-top: 1em;
+    margin-left: 0;
+  	padding-left: 1.5em;
+  	background-position: left center;
+  }
+
+  #user-login-form li.user-link, /* The "Cancel OpenID login" links. */
+  #user-login li.user-link
+  {
+    margin-top: 1em;
+  }
+
+  #user-login li.user-link /* The Cancl OpenID link on the /user form. */
+  {
+    margin-left: 0;
+  }
+
+/*
+ * ALERTS, STATUS, HELP MESSAGE STYLES
+ */
+
+  div.messages
+  {
+    padding: 1.3em 1em .3em 52px;
+    border-width: 2px;
+    margin: 10px 0;
+  }
+
+  div.status
+  {
+    border: 2px solid #ddd;
+    background-color: #eee;
+  }
+
+  div.messages ul
+  {
+    padding: 0 0 0 20px;
+    margin: 0;
+  }
+
+/*
+ * FOOTER STYLES
+ */
+
+  #footer-wrapper
+  {
+    margin: 0;
+  }
+
+  #footer
+  {
+    background: transparent url(images/footer.png) no-repeat;   
+    color: #FFFFFF;
+    text-align: center;
+    margin: 0;
+    display: block;
+    height:36px;
+    font-size: 85%;
+    padding:10px;
+  }
+
+  #footer *
+  {
+    color: #FFFFFF;
+  }
+
+  #footer a
+  {
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 2px;
+  }
+
+  #footer a:hover
+  {
+    border: none;
+  }
+
+  #footer img.drupal-powered
+  {
+    position: relative;
+    top: .3em;
+  }
+
+  #footer .block
+  {
+    text-align: left;
+  }
+ 
+  #footer div.block div.edit
+  {
+    background-color: #2763A5;
+  }
+
+/*
+ * ADMINISTRATION STYLES
+ */
+
+  .admin-panel
+  {
+    margin: 0;
+    padding: 0;
+  }
+
+  .admin-panel .body
+  {
+    background-color: #eee;
+    border: solid #6191C5 1px;
+  }
+
+  .admin-panel .body dl, .admin-panel .body p
+  {
+    padding: 10px;
+  }
+
+  .admin-panel h3
+  {
+    margin-bottom: 0;
+    padding: 5px 5px 5px 30px;
+    font-family: Verdana, "Bitstream Vera Sans", Arial, Helvetica, sans-serif;
+    font-size: 122%;
+    color: #fff;
+    border-width: 0 2px 2px 2px;
+  }
+
+  table tr.odd
+  {
+    background: #ddd;
+  }
+
+  td.icon
+  {
+    text-align: center;
+  }
+
+/*
+ * COMMENT STYLES
+ */
+
+  .comment
+  {
+    margin: 0 0 10px 0;
+    padding: 10px;
+    background: #EBF2F8;
+  }
+
+  .comment-unpublished
+  {
+    background-color: #FFF;
+  }
+
+  .comment-by-author
+  {
+    background: none;
+    border: 1px solid #6191C5;
+  }
+
+  .comment  h3.title
+  {
+    font-size: 122%;
+  }
+
+  .comment  h3.title, .comment  h3.title a
+  {
+    color: #2266AB;
+    font-weight: normal;
+    font-family: "Trebuchet MS", "Bitstream Vera Sans", Verdana, Arial, Helvetica, sans-serif;
+    margin-bottom: 3px;
+    margin-top: 0;
+  }
+
+  .comment .picture, .node .picture
+  {
+    float: left;
+    margin-right: 15px;
+  }
+
+  .node.node-unpublished .picture,
+  .comment.comment-unpublished .picture
+  {
+    position: relative; /* Otherwise floated pictures will appear below the "Unpublished" text. */
+  }
+
+  .comment .new
+  {
+    color: #FFC600;
+    font-weight: bold;
+    font-family: "Trebuchet MS", "Bitstream Vera Sans", Verdana, Arial, Helvetica, sans-serif;
+  }
+
+  .comment .links
+  {
+    text-align: right;
+  }
+
+/*
+ * POLL STYLES
+ */
+
+  .poll .bar .foreground
+  {
+    background: #2763A5;
+  }
+
+  .poll .bar
+  {
+    padding: 2px;
+    background: #BDCBDD;
+  }
+
+/*
+ * BOOK STYLES
+ */
+
+  div.node div.content .book-navigation
+  {
+    background: #eee;
+    margin: 0;
+    padding: 0;
+  }
+
+  div.node div.content .book-navigation ul.menu
+  {
+    border: 0;
+    border-top: 1px solid #2763A5;
+    margin: 0;
+    padding-bottom: 10px;
+  }
+
+  div.node div.content .book-navigation .page-links
+  {
+    background: #C1D4EA; /*#347FD2;*/
+    border: 1px solid #2763A5;
+    border-width: 1px 0 1px 0;
+    padding: 5px;
+    margin: 0;
+  }
+
+/*
+ * FORUM STYLES
+ */
+
+  #forum table
+  {
+    width: 100%;
+  }
+
+/*
+ * Pager styles
+ */
+
+  .pager
+  {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .pager  a, .pager-current
+  {
+    padding: 3px 8px 3px 8px;
+    margin: 0 2px 0 2px;
+    color: #2763A5;
+    font-weight: bold;
+    border: solid 1px #eee;
+  }
+
+  .pager-current
+  {
+    color: #fff;
+    background-color: #2763A5;
+  }
+
+/*
+ * Node, Block, Content styles
+ */
+
+  .node
+  {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+  }
+
+  .node-unpublished div.unpublished, /* The word "Unpublished" displayed beneath the content. */
+  .comment-unpublished div.unpublished
+  {
+    height: 0;
+    overflow: visible;
+    color: #d8d8d8;
+    font-size: 75px;
+    line-height: 1;
+    font-family: Impact, "Arial Narrow", Helvetica, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    word-wrap: break-word; /* A very nice CSS3 property */
+  }
+
+  h1 
+  {
+      margin-top: 15px;
+      padding-top:10px;
+  }  
+  h1.title
+  {	
+      color: #f28725;
+  }
+  h2.title
+  {
+      color: #f28725;
+      margin-bottom: .1em;
+  }
+
+  #main h2.title a
+  {
+    font-size: 110%;
+
+  }
+
+  #sidebar-right  h2.title a
+  {
+    font-size: 120%;
+
+  }
+  
+  h2, h3
+  {
+      color: #f28725;
+      margin-bottom: .1em;
+  }
+  h3 a 
+  {
+    color: #f28725; 
+     
+  }
+  
+  .node .content
+  {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .sticky
+  {
+    border-bottom: solid 3px #ddd;
+  }
+  #content-top { 
+  float:right;
+  }
+  #container #sidebar-left {
+    width:175px;
+    margin:0;
+  }
+  
+  #sidebar-left .block,
+  #sidebar-right .block
+  {
+    margin: 15px 0 0 0;
+    height: auto;
+  }
+
+  #sidebar-left .block
+  {
+    padding-right: 5px;
+  }
+  #sidebar-left .block ul
+  {
+    padding-right: 2px;
+  }
+  #sidebar-left .block ul li
+  {
+    padding: 0;
+    list-style: none; 
+    list-style-image:none   
+  }
+  #sidebar-left .block ul li a
+  {
+    margin-bottom: .1em;
+    font-weight:bold;
+    font-size: 80%;
+    color: #1463a5;
+  }  
+
+  #sidebar-left .block ul li.active-trail a
+  {
+    color: #f69024;
+  }  
+    
+  #sidebar-right .block
+  {
+    padding-left: 15px;
+    padding-top: 10px;
+  }
+  
+  #sidebar-right .block .title
+  {
+    font-size: 80%;
+  }
+  #sidebar-right .block img
+  {    
+  text-align:center;
+  }
+    
+    
+  #menu-1761, #menu-1765, #menu-1823, 
+  #menu-1793, #menu-1788, #menu-1829, #menu-1827, #menu-1831, 
+  /* Product German */
+  #menu-1897, #menu-1967,  #menu-1971,
+  /* Product French */
+  #menu-2387, #menu-2400,  #menu-2451, 
+  /* Store German */
+  #menu-2930, #menu-2935, #menu-2941, #menu-2945, #menu-2944,
+  /* Store French */
+  #menu-2878, #menu-1985,  #menu-1986, #menu-2923, #menu-2926   
+  {
+      background-color: #ededed;
+  }
+  #menu-1412,
+  #menu-1779,
+  #menu-2160 
+  {
+      background: url(images/menu-label.png) repeat-x;
+  }     
+  .block .content
+  {
+    margin: 0;
+  }
+
+  .block .item-list ul
+  {
+    padding-left: 0;
+  }
+
+  .content p img
+  {
+    margin: 5px 0;
+    padding: 0;
+  }
+  div.view-content a.external,
+  div.view-content div.filefield-file
+  {
+      display: none;
+  }
+  
+/*
+ * Status report colors.
+ */
+
+  table.system-status-report tr.error, table.system-status-report tr.error th
+  {
+    background-color: #fcc;
+    border-color: #ebb;
+    color: #200;
+  }
+
+  table.system-status-report tr.warning, table.system-status-report tr.warning th
+  {
+    background-color: #ffd;
+    border-color: #eeb;
+  }
+
+  table.system-status-report tr.ok, table.system-status-report tr.ok th
+  {
+    background-color: #dfd;
+    border-color: #beb;
+  }
+
+
+
+
+
+
+
+/**
+ * Alexo
+ * necessary style overrides
+ */
+fieldset
+{
+  border:1px solid #ccc;
+  padding:1em;
+  margin:1em 0;
+}
+
+/*
+	CSS from http://acquia.com/sign-up for orange styled form submit buttons
+*/
+.rounded_button{border:0;background:transparent url(images/rounded_button/buttonLt.gif) no-repeat;height:25px;position:static;font-size:1em;color:white;padding-bottom:5px;padding-right:2px;padding-left:10px;margin-right:10px;cursor:pointer;}
+div.rounded_button{padding-bottom:7px;display:inline;}
+a.rounded_button,div.rounded_button{color:white!important;padding-top:2px!important;}
+.rounded_button a{color:white!important;padding:2px 0 7px 0!important;margin-right:0px;}
+.buttonEnding,.buttonEndingInput{position:absolute;display:inline;width:10px;height:25px;margin-left:-15px!important;background:url(images/rounded_button/buttonEnding.gif) no-repeat;}
+@media screen {
+	.buttonEndingInput{position:static;display:inline-block;margin-bottom:-9.5px;}
+}
+.buttonEnding{margin-top:-2px!important;margin-top:0px;}
+

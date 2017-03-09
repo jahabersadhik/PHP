@@ -1,0 +1,24 @@
+
+body{background:url(../images/bkgrnd_greydots.png) repeat;color:#999999;font-family:Arial,Helvetica,sans-serif;font-size:1em;margin:0 auto;padding:0;}
+#container{width:963px;margin:0 auto;}
+#header{width:963px;height:110px;background:url(../images/header.png) top center;}
+.clearfix{clear:both;}
+* {color:#999999;font-family:Arial,Helvetica,sans-serif;font-size:1em;margin:0;padding:0;}
+#maincontainer{margin:10px 6px;}
+#left_pannel{width:174px;float:left;}
+#left_pannel .l_top{height:11px;background:url(../images/l_top.png) no-repeat left top;width:167px;}
+#left_pannel .l_mid{background:url(../images/l_mid.png) repeat-y left top;width:151px;padding:0 8px;}
+#left_pannel .l_bottom{height:11px;background:url(../images/l_bottom.png) no-repeat left top;width:167px;}
+#right_pannel{width:777px;float:left;color:#999999;font-family:Arial,Helvetica,sans-serif;font-size:1em;}
+#right_pannel .r_top{height:11px;background:url(../images/r_top.png) no-repeat left top;width:777px;}
+#right_pannel .r_mid{background:url(../images/r_mid.png) repeat-y left top;width:757px;padding:0 10px;color:#999999;font-family:Arial,Helvetica,sans-serif;font-size:12px;}
+#right_pannel .r_bottom{height:11px;background:url(../images/r_bottom.png) no-repeat left top;width:777px;}
+/* -------content css------- */
+#menu {}
+#menu li {border-bottom:1px solid #EAE9E9;border-right:1px solid #EAE9E9;font-size:0.8em;text-align:right;}
+li {list-style-type:none;}
+li a.link_menu:link, li a.link_menu:visited {background:url("../images/ico_arrow_orange.gif") no-repeat scroll left center transparent;display:block;font-variant:small-caps;font-weight:bold;padding:5px 15px;text-decoration:none;width:120px;}
+li a.link_menu:hover, li a.link_menu:active {display: block;width: 120px;background: url(../images/ico_arrow_grey.gif) no-repeat left #f8f8f8;color: #ff9600;padding: 5px 15px;font-weight: bold;font-variant: small-caps;text-decoration: none;}
+a:link, a:visited {text-decoration:none;}
+#footer .footer_content{font-size:small;text-align:center;}
+.orange{color:#FF6600;}
