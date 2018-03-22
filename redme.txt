@@ -1,5 +1,3 @@
 THis is first commit
 
-Push commit
-Testing
-tttt
+Push commit using jenkins
